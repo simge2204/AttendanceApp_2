@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package schoolapp.gui.controller;
+package attapp.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,10 +28,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import schoolapp.be.Attendance;
-import schoolapp.be.Student;
-import schoolapp.gui.model.SchoolAppModel;
-import schoolapp.gui.controller.LoginController;
+import attapp.be.Attendance;
+import attapp.be.Student;
+import attapp.gui.model.SchoolAppModel;
+import attapp.gui.controller.LoginController;
 import javafx.scene.Node;
 
 /**
@@ -51,7 +46,7 @@ public class StudentViewController implements Initializable
     private SchoolAppModel model;
     private Student s;
     private BorderPane borderPane;
-    schoolapp.gui.controller.LoginController mainViewController;
+    attapp.gui.controller.LoginController mainViewController;
     @FXML
     private Label name;
     @FXML
@@ -219,7 +214,7 @@ public class StudentViewController implements Initializable
         newStage.setWidth(1000);
         newStage.setResizable(false);
 
-        newScene.getStylesheets().add("schoolapp/gui/view/Style.css");
+        newScene.getStylesheets().add("attapp/gui/view/Style.css");
 
         newStage.setScene(newScene);
         newStage.show();
@@ -230,7 +225,7 @@ public class StudentViewController implements Initializable
     private void studentLogOut(ActionEvent event) throws IOException
         {
 
-         FXMLLoader loader  = new FXMLLoader(getClass().getResource("/schoolapp/gui/view/LoginView.fxml"));
+         FXMLLoader loader  = new FXMLLoader(getClass().getResource("/attapp/gui/view/LoginView.fxml"));
         Parent root = loader.load();
         LoginController con = loader.getController();
         con.setRootLayout(rootLayout);

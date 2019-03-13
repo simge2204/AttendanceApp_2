@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package schoolapp.be;
+package attapp.be;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -87,13 +82,3 @@ public class Attendance
        return requestAttendance;
    }
 }
-         
-    
-    
-
-
-
-
-
-
-

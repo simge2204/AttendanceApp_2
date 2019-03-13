@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package schoolapp.gui.controller;
+package attapp.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,7 +39,7 @@ public class RootLayoutController implements Initializable
     @FXML
     private void logOut(ActionEvent event) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/schoolapp/gui/view/LoginView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/LoginView.fxml"));
         Parent root = loader.load();
         LoginController con = loader.getController();
         con.setRootLayout(borderPane);
@@ -62,7 +57,7 @@ public class RootLayoutController implements Initializable
     private void about(ActionEvent event)
     {
         Alert about = new Alert(Alert.AlertType.INFORMATION);
-        about.setHeaderText("Om SchoolApp");
+        about.setHeaderText("Om attapp");
         about.setContentText("Dette program holder styr på dit fravær");
         about.show();
     }

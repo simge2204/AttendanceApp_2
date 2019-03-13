@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" maxHeight="-Infinity" prefHeight="662.0" prefWidth="600.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolapp.gui.controller.LoginController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" maxHeight="-Infinity" prefHeight="662.0" prefWidth="600.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attapp.gui.controller.LoginController">
     <children>
         <Button fx:id="button" layoutX="285.0" layoutY="404.0" mnemonicParsing="false" onAction="#openStudent" prefHeight="54.0" prefWidth="120.0" text="Studerende" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="405.0" />
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />

@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package schoolapp;
+package attapp; 
 
 import java.io.IOException;
 import javafx.application.Application;
@@ -21,7 +16,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import schoolapp.gui.controller.LoginController;
+import attapp.gui.controller.LoginController;
+import static javafx.application.Application.launch;
 
 /**
  *
@@ -42,7 +38,7 @@ public class SchoolApp extends Application
         // Load root layout from fxml file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(SchoolApp.class
-                .getResource("/schoolapp/gui/view/RootLayout.fxml"));
+                .getResource("/attapp/gui/view/RootLayout.fxml"));
         rootLayout = (BorderPane) loader.load();
 
         // Show the scene containing the root layout.
@@ -96,7 +92,7 @@ public class SchoolApp extends Application
     private void initView() throws IOException
     {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(SchoolApp.class.getResource("/schoolapp/gui/view/LoginView.fxml"));
+        loader.setLocation(SchoolApp.class.getResource("/attapp/gui/view/LoginView.fxml"));
         AnchorPane logIn = (AnchorPane) loader.load();
 
         LoginController controller = loader.getController();

@@ -13,7 +13,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" fx:id="teacherPage" prefHeight="662.0" prefWidth="600.0" styleClass="background" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolapp.gui.controller.TeacherViewController">
+<AnchorPane id="AnchorPane" fx:id="teacherPage" prefHeight="662.0" prefWidth="600.0" styleClass="background" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attapp.gui.controller.TeacherViewController">
    <children>
       <ChoiceBox fx:id="classChooser" layoutX="412.0" layoutY="73.0" prefHeight="45.0" prefWidth="180.0" styleClass="chart" value="Test" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="73.0" />
       <TableView fx:id="tableView" layoutX="11.0" layoutY="136.0" prefHeight="243.0" prefWidth="578.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="136.0">

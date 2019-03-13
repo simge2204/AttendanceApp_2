@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package schoolapp.gui.controller;
+package attapp.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,7 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import schoolapp.dal.Authentication;
+import attapp.dal.Authentication;
 
 /**
  * FXML Controller class
@@ -56,7 +51,7 @@ public class LoginController implements Initializable
     {
         if (Authentication.validateStudentLogin(username.getText(), password.getText()) == true)
         {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/schoolapp/gui/view/StudentView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/StudentView.fxml"));
             Parent root = loader.load();
             StudentViewController controller = loader.getController();
             controller.setRootLayout(rootLayout);
@@ -77,7 +72,7 @@ public class LoginController implements Initializable
     {
         if (Authentication.validateTeacherLogin(username.getText(), password.getText()) == true)
         {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/schoolapp/gui/view/TeacherView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/TeacherView.fxml"));
             Parent root = loader.load();
             TeacherViewController controller = loader.getController();
             controller.setRootLayout(rootLayout);

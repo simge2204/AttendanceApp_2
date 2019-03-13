@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package schoolapp.dal;
+package attapp.dal;
 
 import java.util.Calendar;
-import schoolapp.be.Attendance;
-import schoolapp.be.Student;
-import schoolapp.be.Teacher;
+import attapp.be.Attendance;
+import attapp.be.Student;
+import attapp.be.Teacher;
 
 /**
  *

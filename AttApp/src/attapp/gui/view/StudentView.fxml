@@ -11,7 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" fx:id="studentPage" prefHeight="662.0" prefWidth="600.0" styleClass="background" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schoolapp.gui.controller.StudentViewController">
+<AnchorPane id="AnchorPane" fx:id="studentPage" prefHeight="662.0" prefWidth="600.0" styleClass="background" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attapp.gui.controller.StudentViewController">
    <children>
       <Label fx:id="absence" layoutX="531.0" layoutY="89.0" prefHeight="21.0" prefWidth="58.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="92.0" />
       <Label fx:id="name" layoutX="163.0" layoutY="62.0" prefHeight="21.0" prefWidth="215.0" AnchorPane.leftAnchor="163.0" AnchorPane.topAnchor="62.0" />

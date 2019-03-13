@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package schoolapp.gui.controller;
+package attapp.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,12 +33,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import schoolapp.be.Attendance;
-import schoolapp.be.SchoolClass;
-import schoolapp.be.Student;
-import schoolapp.be.Teacher;
-import schoolapp.gui.model.SchoolAppModel;
-import schoolapp.gui.controller.LoginController;
+import attapp.be.Attendance;
+import attapp.be.SchoolClass;
+import attapp.be.Student;
+import attapp.be.Teacher;
+import attapp.gui.model.SchoolAppModel;
+import attapp.gui.controller.LoginController;
 
 /**
  * FXML Controller class
@@ -308,7 +303,7 @@ public class TeacherViewController implements Initializable
             newStage.setWidth(1000);
             newStage.setResizable(false);
 
-            newScene.getStylesheets().add("schoolapp/gui/view/Style.css");
+            newScene.getStylesheets().add("attapp/gui/view/Style.css");
 
             newStage.setScene(newScene);
             newStage.show();
@@ -351,7 +346,7 @@ public class TeacherViewController implements Initializable
             newStage.setWidth(1000);
             newStage.setResizable(false);
 
-            newScene.getStylesheets().add("schoolapp/gui/view/Style.css");
+            newScene.getStylesheets().add("attapp/gui/view/Style.css");
 
             newStage.setScene(newScene);
             newStage.show();
@@ -363,7 +358,7 @@ public class TeacherViewController implements Initializable
     private void teacherLogOut(ActionEvent event) throws IOException
     {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/schoolapp/gui/view/LoginView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/LoginView.fxml"));
         Parent root = loader.load();
         LoginController con = loader.getController();
         con.setRootLayout(rootLayout);
