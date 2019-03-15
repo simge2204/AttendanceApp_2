@@ -6,7 +6,9 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -18,7 +20,18 @@
       <ChoiceBox fx:id="classChooser" layoutX="412.0" layoutY="73.0" prefHeight="45.0" prefWidth="180.0" styleClass="chart" value="Test" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="73.0" />
       <TableView fx:id="tableView" layoutX="11.0" layoutY="136.0" prefHeight="243.0" prefWidth="578.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="136.0">
         <columns>
-          <TableColumn fx:id="name" prefWidth="195.0" text="Navn" />
+          <TableColumn fx:id="name" prefWidth="195.0" text="Navn">
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Unspecified Action">
+                           <graphic>
+                              <Button mnemonicParsing="false" text="Button" />
+                           </graphic>
+                        </MenuItem>
+                    </items>
+                  </ContextMenu>
+               </contextMenu></TableColumn>
           <TableColumn fx:id="schoolClass" prefWidth="106.0" text="Klasse" />
             <TableColumn fx:id="email" prefWidth="141.0" text="E-mail" />
             <TableColumn fx:id="absence" minWidth="0.0" prefWidth="154.0" text="Fravær" />

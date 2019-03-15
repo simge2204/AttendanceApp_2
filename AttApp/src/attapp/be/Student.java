@@ -33,6 +33,8 @@ public class Student extends Person
         this.schoolClass.set(schoolClass);
     }
 
+   
+
     public void addAttendance(Calendar theDate, boolean wasThere)
     {
         fullAttendance.add(new Attendance(theDate, wasThere));
