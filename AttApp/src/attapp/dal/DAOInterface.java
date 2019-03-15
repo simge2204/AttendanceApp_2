@@ -4,6 +4,9 @@ import java.util.Calendar;
 import attapp.be.Attendance;
 import attapp.be.Student;
 import attapp.be.Teacher;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  *
@@ -35,7 +38,7 @@ public interface DAOInterface
      * @param id
      * @return
      */
-    Student getStudent(int id);
+    Student getStudent(int id)throws SQLServerException, IOException, SQLException;
     /**
      * Asks for a change of attendance
      * @param id
