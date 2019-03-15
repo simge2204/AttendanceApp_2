@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" styleClass="background" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attapp.gui.controller.RootLayoutController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#setOnMouseDragged" onMousePressed="#setOnMousePressed" prefHeight="700.0" prefWidth="600.0" styleClass="background" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="attapp.gui.controller.RootLayoutController">
    <top>
-      <HBox prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <HBox fx:id="hBox" prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar fx:id="menuBar" prefHeight="38.0" prefWidth="542.0">
+            <MenuBar fx:id="menuBar" onMouseDragged="#setOnMouseDragged" onMousePressed="#setOnMousePressed" prefHeight="38.0" prefWidth="542.0">
               <menus>
                 <Menu mnemonicParsing="false" text="Filer">
                   <items>

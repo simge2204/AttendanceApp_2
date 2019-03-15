@@ -25,7 +25,9 @@ import static javafx.application.Application.launch;
  */
 public class SchoolApp extends Application
 {
-
+    private double xOffSet = 0;
+    private double yOffSet = 0;
+    
     private Stage primaryStage;
     private BorderPane rootLayout;
 
@@ -37,9 +39,24 @@ public class SchoolApp extends Application
         primaryStage.setResizable(false);
         // Load root layout from fxml file.
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(SchoolApp.class
-                .getResource("/attapp/gui/view/RootLayout.fxml"));
+        loader.setLocation(SchoolApp.class.getResource("/attapp/gui/view/RootLayout.fxml"));
         rootLayout = (BorderPane) loader.load();
+        
+        rootLayout.setOnMousePressed(new EventHandler<MouseEvent>() {
+        @Override
+        public void handle (MouseEvent event) {
+            xOffSet = event.getSceneX();
+            yOffSet = event.getSceneY();
+        }
+        });
+
+        rootLayout.setOnMouseDragged(new EventHandler <MouseEvent>() {
+            @Override
+            public void handle (MouseEvent event) {
+            stage.setX(event.getScreenX() - xOffSet);
+            stage.setY(event.getScreenY() - yOffSet);
+            }
+        });
 
         // Show the scene containing the root layout.
         Scene scene = new Scene(rootLayout);
