@@ -33,14 +33,8 @@ public class Tester
             pstmt2.setString(1,"CS2018");
             pstmt2.setString(2,"ITO");
             pstmt2.execute();
-            
-            String SQL = "INSERT INTO Student VALUES (?, ?, ?)";
-          
-            PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            pstmt.setInt(1,101);
-            pstmt.setString(2,"Casper Henriksen");
-            pstmt.setString(3,"casp7363@easv365.dk");
-            pstmt.execute(); 
+           
+             
             
             
         }
@@ -50,5 +44,37 @@ public class Tester
      
         }
     }
-   
+   public Student createStudent(Student studentToAdd) throws IOException, SQLServerException, SQLException
+   {
+        try
+        {
+            String name = studentToAdd.getName();
+            String email = studentToAdd.getEmail();
+            String schoolClass = studentToAdd.getSchoolClass();
+            
+            Student newStudent = null;
+            DbConnection dbCon = new DbConnection();
+            Connection con = dbCon.getConnection();
+            String SQL = "INSERT INTO Student VALUES (?, ?, ?)";
+            PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1, name);
+            pstmt.setString(2, email);
+            pstmt.setString(3, schoolClass);
+            pstmt.execute();
+            
+            ResultSet generatedKeys = pstmt.getGeneratedKeys();
+            if (generatedKeys.next())
+            {
+                newStudent= new Student(name, generatedKeys.getInt(1), email, schoolClass);
+                return newStudent;
+            }
+            return newStudent;
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        return null;
+        
+   }
 }
