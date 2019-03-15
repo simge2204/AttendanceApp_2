@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -21,11 +23,15 @@ import javafx.scene.layout.BorderPane;
  */
 public class RootLayoutController implements Initializable
 {
-
+    private double xOffSet = 0;
+    private double yOffSet = 0;
+    
     @FXML
     private BorderPane borderPane;
     @FXML
     private MenuBar menuBar;
+    @FXML
+    private HBox hBox;
 
     /**
      * Initializes the controller class.
@@ -67,5 +73,13 @@ public class RootLayoutController implements Initializable
     {
         Platform.exit();
     }
-    
+
+    @FXML
+    private void setOnMouseDragged(MouseEvent event) {
+        
+                }
+
+    @FXML
+    private void setOnMousePressed(MouseEvent event) {
+    }
 }
