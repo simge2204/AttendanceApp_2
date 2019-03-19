@@ -22,59 +22,18 @@ public class Tester
 {
     public static void main(String[] args) throws IOException, SQLServerException, SQLException
     {
+        AttendanceDbDAO ad = new AttendanceDbDAO(); 
+      
+////        System.out.println(d);
+//        ad.removeStudent(ad.getStudent(2));
+//            ad.addTeacher("Hans", 1, "Hans@easv.com");
+//        System.out.println(ad.getTeacher(1));
+        ad.removeTeacher(ad.getTeacher(1));
+       
+       
         
-        
-        DbConnection db = new DbConnection();
-        Connection con = db.getConnection();
-        try
-        {
-            String SQL2 = "INSERT INTO Class Values(?, ?)";
-            PreparedStatement pstmt2 = con.prepareStatement(SQL2, Statement.RETURN_GENERATED_KEYS);
-            pstmt2.setString(1,"CS2018");
-            pstmt2.setString(2,"ITO");
-            pstmt2.execute();
-           
-             
-            
-            
-        }
-        catch (SQLException ex)
-        {
-            ex.printStackTrace();
-     
-        }
+   
+
+   
     }
-   public Student createStudent(Student studentToAdd) throws IOException, SQLServerException, SQLException
-   {
-        try
-        {
-            String name = studentToAdd.getName();
-            String email = studentToAdd.getEmail();
-            String schoolClass = studentToAdd.getSchoolClass();
-            
-            Student newStudent = null;
-            DbConnection dbCon = new DbConnection();
-            Connection con = dbCon.getConnection();
-            String SQL = "INSERT INTO Student VALUES (?, ?, ?)";
-            PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            pstmt.setString(1, name);
-            pstmt.setString(2, email);
-            pstmt.setString(3, schoolClass);
-            pstmt.execute();
-            
-            ResultSet generatedKeys = pstmt.getGeneratedKeys();
-            if (generatedKeys.next())
-            {
-                newStudent= new Student(name, generatedKeys.getInt(1), email, schoolClass);
-                return newStudent;
-            }
-            return newStudent;
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-        }
-        return null;
-        
-   }
 }

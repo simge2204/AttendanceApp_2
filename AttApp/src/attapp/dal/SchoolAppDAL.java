@@ -6,6 +6,9 @@ import attapp.be.Attendance;
 import attapp.be.SchoolClass;
 import attapp.be.Student;
 import attapp.be.Teacher;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  *This class contains mockdata which is sent to the GUI
@@ -155,10 +158,45 @@ public class SchoolAppDAL implements DAOInterface
     {
         
     }
-@Override
+
     public Teacher getTeacher()
     {
   return t;
+    }
+
+    @Override
+    public Teacher getTeacher(int id) throws SQLServerException, IOException, SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+    @Override
+    public void removeStudent(Student StudToRemove) throws IOException, SQLServerException, SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeTeacher(Teacher TeachToRemove) throws IOException, SQLServerException, SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+
+    @Override
+    public Teacher addTeacher(String name, int Id, String Email) throws IOException, SQLServerException, SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+
+//    @Override
+//    public void removeTeacher(Teacher TeachToRemove)throws IOException, SQLServerException, SQLException {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+
+    @Override
+    public Student addStudent(String name, int Id, String Email, int schoolClass) throws IOException, SQLServerException, SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

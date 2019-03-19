@@ -44,8 +44,21 @@ public interface DAOInterface
      * @param id
      * @param chosenAttendance 
      */
+    
+    void removeStudent(Student StudToRemove)throws IOException, SQLServerException, SQLException;
+    
     void askForAttendance(int id, Attendance chosenAttendance);
     
-     Teacher getTeacher();
+    Teacher getTeacher(int id)throws SQLServerException, IOException, SQLException;
+     
+     
+    void removeTeacher(Teacher TeachToRemove)throws IOException, SQLServerException, SQLException; 
+    
+    Student addStudent(String name, int Id, String Email, int schoolClass)throws IOException, SQLServerException, SQLException;
+    
+    Teacher addTeacher(String name,int Id,String Email)throws IOException, SQLServerException, SQLException;
+
+
+
 
 }

@@ -19,7 +19,7 @@ public class Student extends Person
 {
 
     private ArrayList<Attendance> fullAttendance;
-    private StringProperty schoolClass;
+     private StringProperty schoolClass;
     private double absencePercentage = 0;
     private DoubleProperty abPercentage;
 

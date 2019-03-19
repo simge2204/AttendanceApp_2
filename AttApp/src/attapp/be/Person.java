@@ -27,7 +27,7 @@ public class Person
 
     public String getName()
     {
-        return name.get();
+        return name.getValue();
     }
 
     public int getId()
@@ -38,6 +38,11 @@ public class Person
     {
         return email.get();
     }
-    
 
+    @Override
+    public String toString() {
+        return "Person{" + "name=" + name + ", id=" + id + ", email=" + email + '}';
+    }
+    
+    
 }
