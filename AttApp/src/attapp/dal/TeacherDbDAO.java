@@ -27,16 +27,10 @@ public class TeacherDbDAO implements DAOInterface {
     }
 
     @Override
-    public Student getStudent(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void askForAttendance(int id, Attendance chosenAttendance) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public Teacher getTeacher() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

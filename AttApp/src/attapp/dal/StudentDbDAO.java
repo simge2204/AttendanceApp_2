@@ -42,7 +42,6 @@ public class StudentDbDAO implements DAOInterface {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public Student getStudent(int id) throws SQLServerException, IOException, SQLException {
          DbConnection dc = new DbConnection();
         try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select * FROM Student WHERE studentID = (?)");)
@@ -78,11 +77,6 @@ public class StudentDbDAO implements DAOInterface {
 
     @Override
     public void askForAttendance(int id, Attendance chosenAttendance) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Teacher getTeacher() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

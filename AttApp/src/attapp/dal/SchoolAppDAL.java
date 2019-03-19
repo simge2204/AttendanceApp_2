@@ -132,7 +132,7 @@ public class SchoolAppDAL implements DAOInterface
 
     }
 
-    @Override
+    
     public Student getStudent(int id)
     {
         return s;
@@ -155,10 +155,10 @@ public class SchoolAppDAL implements DAOInterface
     {
         
     }
-@Override
+
     public Teacher getTeacher()
     {
-  return t;
+        return t;
     }
 
 }

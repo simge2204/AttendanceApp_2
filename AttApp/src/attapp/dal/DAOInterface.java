@@ -31,14 +31,6 @@ public interface DAOInterface
 
     boolean checkForSchoolNetWork();
 
-
-    /**
-     * Returns the student with the given ID
-     *
-     * @param id
-     * @return
-     */
-    Student getStudent(int id)throws SQLServerException, IOException, SQLException;
     /**
      * Asks for a change of attendance
      * @param id
@@ -46,6 +38,5 @@ public interface DAOInterface
      */
     void askForAttendance(int id, Attendance chosenAttendance);
     
-     Teacher getTeacher();
 
 }
