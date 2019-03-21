@@ -9,6 +9,7 @@ import attapp.be.SchoolClass;
 import attapp.be.Student;
 import attapp.be.Teacher;
 import attapp.bll.SchoolAppManager;
+import java.sql.Date;
 
 /**
  *
@@ -54,9 +55,9 @@ public class SchoolAppModel
         return manager.checkForSchoolNetwork();
     }
 
-    public boolean checkForDailyAttendance(Calendar date)
+    public boolean checkForDailyAttendance(Date date)
     {
-        return manager.checkForDailtyAttendance(date);
+        return manager.checkForDailyAttendance(date);
     }
 
     public void askForAttendance(int id, Attendance chosenAttendance)
