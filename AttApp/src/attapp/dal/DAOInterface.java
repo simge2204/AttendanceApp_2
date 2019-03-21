@@ -7,6 +7,7 @@ import attapp.be.Teacher;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Date;
 
 /**
  *
@@ -21,7 +22,7 @@ public interface DAOInterface
      * @param date
      * @return
      */
-    boolean checkForDailtyAttendance(Calendar date);
+    boolean checkForDailyAttendance(Date date)throws SQLServerException, IOException, SQLException;
 
     /**
      * Returns true if the user is on the school network

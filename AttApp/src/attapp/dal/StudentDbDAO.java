@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,7 +33,7 @@ public class StudentDbDAO implements DAOInterface {
             
             
     @Override
-    public boolean checkForDailtyAttendance(Calendar date) {
+    public boolean checkForDailyAttendance(Date date) throws SQLServerException, IOException, SQLException{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

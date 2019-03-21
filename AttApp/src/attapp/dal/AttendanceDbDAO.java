@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,8 +31,18 @@ public class AttendanceDbDAO implements DAOInterface {
     
     
     @Override
-    public boolean checkForDailtyAttendance(Calendar date) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean checkForDailyAttendance(Date date) throws SQLServerException, IOException, SQLException{
+        DbConnection dc = new DbConnection();
+         boolean wasThere = false;
+        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select * from Attendendance where non_Attendance = (?) join abscent");){
+            pstmt.setDate(1, date);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                boolean b = rs.getBoolean("abscent");
+             wasThere = b;   
+            }
+        }
+        return wasThere;
     }
 
     @Override
@@ -185,5 +195,6 @@ public class AttendanceDbDAO implements DAOInterface {
 
         return addedTeacher;
     }
-
 }
+
+

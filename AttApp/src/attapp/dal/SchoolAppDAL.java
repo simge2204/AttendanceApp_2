@@ -8,6 +8,7 @@ import attapp.be.Student;
 import attapp.be.Teacher;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 
 /**
@@ -149,7 +150,7 @@ public class SchoolAppDAL implements DAOInterface
     }
 
     @Override
-    public boolean checkForDailtyAttendance(Calendar date)
+    public boolean checkForDailyAttendance(Date date)
     {
         return false;
     }

@@ -10,6 +10,7 @@ import attapp.be.Student;
 import attapp.be.Teacher;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Calendar;
 
@@ -20,7 +21,7 @@ import java.util.Calendar;
 public class TeacherDbDAO implements DAOInterface {
 
     @Override
-    public boolean checkForDailtyAttendance(Calendar date) {
+    public boolean checkForDailyAttendance(Date date) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
