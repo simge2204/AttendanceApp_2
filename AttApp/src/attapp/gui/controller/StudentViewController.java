@@ -32,6 +32,8 @@ import attapp.be.Attendance;
 import attapp.be.Student;
 import attapp.gui.model.SchoolAppModel;
 import attapp.gui.controller.LoginController;
+import java.sql.Date;
+import java.time.LocalDate;
 import javafx.scene.Node;
 
 /**
@@ -127,14 +129,13 @@ public class StudentViewController implements Initializable
 
     private void showAlert()
     {
-        if (model.checkForSchoolNetwork() == true && model.checkForDailyAttendance(Calendar.getInstance()) == false)
+        if (model.checkForSchoolNetwork() == true && model.checkForDailyAttendance(Date.valueOf(LocalDate.MAX)) == false)
         {
             Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
             showAlert.setHeaderText("Fraværs alarm");
             showAlert.setContentText("Du er ikke registreret for i dag - lad mig gøre det for dig!");
             showAlert.showAndWait();
         }
-
     }
 
     @FXML
