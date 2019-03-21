@@ -1,6 +1,6 @@
 package attapp.bll;
 
-import java.util.Calendar;
+import java.sql.Date;
 import attapp.be.Attendance;
 import attapp.be.Student;
 import attapp.be.Teacher;
@@ -32,9 +32,9 @@ public class SchoolAppManager
                
     }
 
-    public boolean checkForDailtyAttendance(Calendar date)
+    public boolean checkForDailyAttendance(Date date)
     {
-       return dal.checkForDailtyAttendance(date);
+       return dal.checkForDailyAttendance(date);
     }
 
     public void askForAttendance(int id, Attendance chosenAttendance)
