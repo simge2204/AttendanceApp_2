@@ -15,6 +15,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import attapp.dal.Authentication;
+import attapp.gui.model.SchoolAppModel;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * FXML Controller class
@@ -36,6 +40,12 @@ public class LoginController implements Initializable
     private TextField username;
     @FXML
     private Label infoLabel;
+    
+    SchoolAppModel sam;
+    
+    public LoginController() throws IOException, SQLException {
+        sam = new SchoolAppModel(); //badstuff
+    }
 
     /**
      * Initializes the controller class.
@@ -51,11 +61,16 @@ public class LoginController implements Initializable
     {
         if (Authentication.validateStudentLogin(username.getText(), password.getText()) == true)
         {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/StudentView.fxml"));
-            Parent root = loader.load();
-            StudentViewController controller = loader.getController();
-            controller.setRootLayout(rootLayout);
-            rootLayout.setCenter(root);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/StudentView.fxml"));
+                Parent root = loader.load();
+                StudentViewController controller = loader.getController();
+                controller.setStudent(sam.getStudent());
+                controller.setRootLayout(rootLayout);
+                rootLayout.setCenter(root);
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else
         {
             infoLabel.setText("Please type a valid password");
@@ -72,11 +87,17 @@ public class LoginController implements Initializable
     {
         if (Authentication.validateTeacherLogin(username.getText(), password.getText()) == true)
         {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/TeacherView.fxml"));
-            Parent root = loader.load();
-            TeacherViewController controller = loader.getController();
-            controller.setRootLayout(rootLayout);
-            rootLayout.setCenter(root);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/TeacherView.fxml"));
+                Parent root = loader.load();
+                TeacherViewController controller = loader.getController();
+                controller.setTeacher(sam.getTeacher());
+                
+                controller.setRootLayout(rootLayout);
+                rootLayout.setCenter(root);
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else
         {
             infoLabel.setText("Please type a valid password");

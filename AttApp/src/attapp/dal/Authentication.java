@@ -9,7 +9,7 @@ public class Authentication
     
 public static boolean validateStudentLogin(String sLogin, String password)
 {
-    if(sLogin.equals("Wilhelm Hansen") && password.equals("xsdc"))
+    if(sLogin.equals("Wilhelm Hansen") && password.equals("elev"))
             {
                 return true;
             }
@@ -20,7 +20,7 @@ public static boolean validateStudentLogin(String sLogin, String password)
 
 public static boolean validateTeacherLogin(String tLogin, String password)
 {
-    if(tLogin.equals("Hans Jensen") && password.equals("xxcc"))
+    if(tLogin.equals("Hans Jensen") && password.equals("lære"))
     {
         return true;
     }

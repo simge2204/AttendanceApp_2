@@ -33,16 +33,19 @@ import attapp.be.Student;
 import attapp.gui.model.SchoolAppModel;
 import attapp.gui.controller.LoginController;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.Node;
 
 /**
  *
  * @author simge
  */
-public class StudentViewController implements Initializable
-{
+public class StudentViewController implements Initializable {
 
+    private Student student;
     @FXML
     private Label absence;
     private SchoolAppModel model;
@@ -73,49 +76,51 @@ public class StudentViewController implements Initializable
     private AnchorPane studentPage;
     private BorderPane rootLayout;
 
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
 
-        model = new SchoolAppModel();
-        showAlert();
-        s = model.getStudent(1);
-        double ab = s.getAbsencePercentage();
-        String toShow = String.format("%.1f", ab);
-        absence.setText(toShow + "%");
-        name.setText(s.getName());
-        date.setSortType(TableColumn.SortType.DESCENDING);
+        try {
+            model = new SchoolAppModel();
+            showAlert();
+            s = model.getStudent(1);
+            double ab = s.getAbsencePercentage();
+            String toShow = String.format("%.1f", ab);
+            absence.setText(toShow + "%");
+            name.setText(s.getName());
+            date.setSortType(TableColumn.SortType.DESCENDING);
 
-        // init tableview
-        date.setCellValueFactory(new PropertyValueFactory<>("date"));
-        presence.setCellValueFactory(new PropertyValueFactory<>("attendance"));
-        tableView.setItems(model.getList());
+            // init tableview
+            date.setCellValueFactory(new PropertyValueFactory<>("date"));
+            presence.setCellValueFactory(new PropertyValueFactory<>("attendance"));
+            tableView.setItems(model.getList());
 
-        chart.setTitle("Fraværshistorik");
-        chart.setLegendVisible(false);
-        chart.setTitleSide(Side.TOP);
-        percentage.setLowerBound(0);
-        percentage.setUpperBound(100);
+            chart.setTitle("Fraværshistorik");
+            chart.setLegendVisible(false);
+            chart.setTitleSide(Side.TOP);
+            percentage.setLowerBound(0);
+            percentage.setUpperBound(100);
 
-        calculateAbsence();
-        tableView.getSortOrder().setAll(date);
+            calculateAbsence();
+            tableView.getSortOrder().setAll(date);
 
-        name.setText(s.getName());
-        email.setText(s.getEmail());
+            name.setText(s.getName());
+            email.setText(s.getEmail());
+        } catch (IOException ex) {
+            Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    private void calculateAbsence()
-    {
+    private void calculateAbsence() {
         XYChart.Series<String, Double> series = new XYChart.Series<>();
         ArrayList<Attendance> allAttendance = s.getFullAttendance();
 
         int numberOfDays = 0;
         double daysAttended = 0;
 
-        for (Attendance x : allAttendance)
-        {
+        for (Attendance x : allAttendance) {
             numberOfDays++;
-            if (x.getWasThere() == true)
-            {
+            if (x.getWasThere() == true) {
                 daysAttended++;
             }
             int calAttendance = (int) (100 - daysAttended / numberOfDays * 100);
@@ -127,10 +132,8 @@ public class StudentViewController implements Initializable
 
     }
 
-    private void showAlert()
-    {
-        if (model.checkForSchoolNetwork() == true && model.checkForDailyAttendance(Date.valueOf(LocalDate.MAX)) == false)
-        {
+    private void showAlert() throws IOException, SQLException {
+        if (model.checkForSchoolNetwork() == true && model.checkForDailyAttendance(Date.valueOf(LocalDate.MAX)) == false) {
             Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
             showAlert.setHeaderText("Fraværs alarm");
             showAlert.setContentText("Du er ikke registreret for i dag - lad mig gøre det for dig!");
@@ -139,12 +142,10 @@ public class StudentViewController implements Initializable
     }
 
     @FXML
-    private void askForAttendance(ActionEvent event)
-    {
+    private void askForAttendance(ActionEvent event) {
         Attendance chosenAttendance = tableView.getSelectionModel().getSelectedItem();
 
-        if (chosenAttendance != null && chosenAttendance.getWasThere() == false && chosenAttendance.getRequestAttendance() == false)
-        {
+        if (chosenAttendance != null && chosenAttendance.getWasThere() == false && chosenAttendance.getRequestAttendance() == false) {
             Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
             showAlert.setHeaderText("Anmodning om godkendelse");
             showAlert.setContentText("Din anmodning om godkendelse af fravær d. " + chosenAttendance.getDate() + " er sendt til din lærer!");
@@ -156,14 +157,12 @@ public class StudentViewController implements Initializable
             return;
         }
 
-        if (chosenAttendance != null)
-        {
+        if (chosenAttendance != null) {
             Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
             showAlert.setHeaderText("Anmodning om godkendelse");
             showAlert.setContentText("Du har ikke fravær den valgte dag");
             showAlert.showAndWait();
-        } else
-        {
+        } else {
             Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
             showAlert.setHeaderText("Anmodning om godkendelse");
             showAlert.setContentText("Du har ikke valgt en dag");
@@ -172,8 +171,7 @@ public class StudentViewController implements Initializable
     }
 
     @FXML
-    private void openChart(MouseEvent event)
-    {
+    private void openChart(MouseEvent event) {
         Stage newStage = new Stage();
 
         NumberAxis y = new NumberAxis();
@@ -186,11 +184,9 @@ public class StudentViewController implements Initializable
         int numberOfDays = 0;
         double daysAttended = 0;
 
-        for (Attendance k : allAttendance)
-        {
+        for (Attendance k : allAttendance) {
             numberOfDays++;
-            if (k.getWasThere() == true)
-            {
+            if (k.getWasThere() == true) {
                 daysAttended++;
             }
             int calAttendance = (int) (100 - daysAttended / numberOfDays * 100);
@@ -204,10 +200,9 @@ public class StudentViewController implements Initializable
         y.setLabel("Fravær i procent");
         x.setLabel("Antal skoledage");
 
-        
         BorderPane bPane = new BorderPane();
         bPane.setCenter(l);
-        
+
         bPane.getStyleClass().add("background");
 
         Scene newScene = new Scene(bPane);
@@ -223,19 +218,21 @@ public class StudentViewController implements Initializable
     }
 
     @FXML
-    private void studentLogOut(ActionEvent event) throws IOException
-        {
+    private void studentLogOut(ActionEvent event) throws IOException {
 
-         FXMLLoader loader  = new FXMLLoader(getClass().getResource("/attapp/gui/view/LoginView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/LoginView.fxml"));
         Parent root = loader.load();
         LoginController con = loader.getController();
         con.setRootLayout(rootLayout);
         rootLayout.setCenter(root);
-        }
+    }
 
-    void setRootLayout(BorderPane rootLayout)
-    {
-      this.rootLayout=rootLayout;
+    void setRootLayout(BorderPane rootLayout) {
+        this.rootLayout = rootLayout;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
 }
