@@ -11,11 +11,11 @@ import javafx.beans.property.StringProperty;
  */
 public class Person
 {
-    private StringProperty name; 
-   
-    int id; 
+    private StringProperty name;
+
+    int id;
     private StringProperty email;
-    
+
        public Person (String name, int id, String email)
     {
         this.email = new SimpleStringProperty();
@@ -41,8 +41,8 @@ public class Person
 
     @Override
     public String toString() {
-        return "Person{" + "name=" + name + ", id=" + id + ", email=" + email + '}';
+        return "Person{" + "name = " + name + ", id = " + id + ", email = " + email + '}';
     }
-    
-    
+
+
 }

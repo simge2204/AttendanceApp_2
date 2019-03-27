@@ -92,6 +92,8 @@ public class TeacherViewController implements Initializable
     @FXML
     private AnchorPane teacherPage;
     private BorderPane rootLayout;
+    @FXML
+    private Button changeAbsent;
 
     /**
      * Initializes the controller class.
@@ -387,13 +389,21 @@ public class TeacherViewController implements Initializable
     {
         this.rootLayout = rootLayout;
     }
+
     
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
  
   
- 
+
+
+    @FXML
+    private void changeAbForStud(ActionEvent event)
+    {
+        
+    }
+
             
 
 }
