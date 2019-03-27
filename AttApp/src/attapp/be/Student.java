@@ -22,6 +22,7 @@ public class Student extends Person
      private StringProperty schoolClass;
     private double absencePercentage = 0;
     private DoubleProperty abPercentage;
+    private ArrayList<Attendance> attenlist;
 
     public Student(String name, int id, String email, String schoolClass)
     {
@@ -33,9 +34,9 @@ public class Student extends Person
         this.schoolClass.set(schoolClass);
     }
 
-   
+ 
 
-    public void addAttendance(Calendar theDate, boolean wasThere)
+    public void addAttendance(Calendar theDate, boolean wasThere) // needs fix 
     {
         fullAttendance.add(new Attendance(theDate, wasThere));
 
