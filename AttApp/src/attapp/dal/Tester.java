@@ -35,14 +35,13 @@ public class Tester
             
 //        System.out.println(ad.getTeacher(1));
 //        ad.removeTeacher(ad.getTeacher(1));
-<<<<<<< HEAD
+
        
        
-        
-=======
-        System.out.println(ad.getAttendance(6));
-        System.out.println(ad.getTeacher(8));        
->>>>>>> 4511cf4bcd318b0739929aa2837271cbd5b0c9b6
+
+//        System.out.println(ad.getAttendance(6));
+//        System.out.println(ad.getTeacher(8));        
+
    
 
    
