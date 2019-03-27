@@ -27,14 +27,14 @@ public class DbConnection
         Properties databaseProperties = new Properties();
         databaseProperties.load(new FileInputStream(PROP_FILE));
         ds = new SQLServerDataSource();
-        ds.setServerName(databaseProperties.getProperty("easv-db2"));
-        ds.setDatabaseName(databaseProperties.getProperty("AttendanceAppDatabase"));
-        ds.setUser(databaseProperties.getProperty("CS2018A_6"));
-        ds.setPassword(databaseProperties.getProperty("CS2018A_6"));
-//        ds.setServerName(databaseProperties.getProperty("Server"));
-//        ds.setDatabaseName(databaseProperties.getProperty("Database"));
-//        ds.setUser(databaseProperties.getProperty("User"));
-//        ds.setPassword(databaseProperties.getProperty("Password"));
+//        ds.setServerName(databaseProperties.getProperty("easv-db2"));
+//        ds.setDatabaseName(databaseProperties.getProperty("AttendanceAppDatabase"));
+//        ds.setUser(databaseProperties.getProperty("CS2018A_6"));
+//        ds.setPassword(databaseProperties.getProperty("CS2018A_6"));
+        ds.setServerName(databaseProperties.getProperty("Server"));
+        ds.setDatabaseName(databaseProperties.getProperty("Database"));
+        ds.setUser(databaseProperties.getProperty("User"));
+        ds.setPassword(databaseProperties.getProperty("Password"));
     }
 
     public Connection getConnection() throws SQLServerException

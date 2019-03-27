@@ -107,6 +107,7 @@ public class TeacherViewController implements Initializable
 
     public static final ButtonType JA = null;
     public static final ButtonType NEJ = null;
+    @FXML
     private Button changeAbsent;
 
     /**
@@ -444,6 +445,11 @@ public class TeacherViewController implements Initializable
     public void setTeacher(Teacher teacher)
     {
         this.teacher = teacher;
+    }
+
+    @FXML
+    private void changeAbForStud(ActionEvent event)
+    {
     }
     
     
