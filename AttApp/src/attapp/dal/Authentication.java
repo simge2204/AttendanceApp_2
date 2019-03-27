@@ -53,18 +53,18 @@ public static boolean validateTeacherLogin(String tLogin, String password) throw
     return false;
 }
 
-        public Student loginStudent(String email, String password) throws SQLServerException, IOException, SQLException
-        {
-        DbConnection dc = new DbConnection();
-        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select 'Email_stud', 'password' FROM LoginStud WHERE Email_stud = (?) AND password = (?)");)
-        {
-            Student loginStud = null;
-            pstmt.setString(1, email);
-            pstmt.setString(2, password);
-            pstmt.execute();
-
-            return loginStud;
-        }
-
-    }
+//        public Student loginStudent(String email, String password) throws SQLServerException, IOException, SQLException
+//        {
+//        DbConnection dc = new DbConnection();
+//        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select 'Email_stud', 'password' FROM LoginStud WHERE Email_stud = (?) AND password = (?)");)
+//        {
+//            Student loginStud = null;
+//            pstmt.setString(1, email);
+//            pstmt.setString(2, password);
+//            pstmt.execute();
+//
+//            return loginStud;
+//        }
+//
+//    }
 }
