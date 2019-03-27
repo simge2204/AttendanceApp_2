@@ -34,11 +34,11 @@ public class AttendanceDbDAO implements DAOInterface {
     public boolean checkForDailyAttendance(Date date) throws SQLServerException, IOException, SQLException{
         DbConnection dc = new DbConnection();
          boolean wasThere = false;
-        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select * from Attendendance where non_Attendance = (?) join abscent");){
+        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select * from Attendendance where non_Attendance = (?) join absent");){
             pstmt.setDate(1, date);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                boolean b = rs.getBoolean("abscent");
+                boolean b = rs.getBoolean("absent");
              wasThere = b;   
             }
         }

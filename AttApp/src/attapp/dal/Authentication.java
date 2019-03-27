@@ -1,5 +1,15 @@
 package attapp.dal;
 
+import attapp.be.Person;
+import attapp.be.Student;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.lang.String;
+
 /**
  *
  * @author Philip
@@ -7,9 +17,22 @@ package attapp.dal;
 public class Authentication
 {
     
-public static boolean validateStudentLogin(String sLogin, String password)
+public static boolean validateStudentLogin(String sLogin, String password) throws IOException, SQLServerException, SQLException
 {
-    if(sLogin.equals("Wilhelm Hansen") && password.equals("xsdc"))
+     DbConnection dc = new DbConnection();
+//        try (Connection con = dc.getConnection())
+//        {
+//            PreparedStatement pstmt;
+//            pstmt = con.prepareStatement("Select * FROM Password");
+//            ResultSet rs = pstmt.executeQuery();
+//            while(rs.next())
+//            {
+//                Person std = Person(name, id, email);
+//                
+//            }
+//        }
+    
+        if(sLogin.equals("Wilhelm Hansen") && password.equals("xsdc"))
             {
                 return true;
             }

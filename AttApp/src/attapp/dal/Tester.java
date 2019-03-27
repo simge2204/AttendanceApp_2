@@ -28,8 +28,8 @@ public class Tester
 //        ad.removeStudent(ad.getStudent(2));
 //            ad.addTeacher("Hans", 1, "Hans@easv.com");
 //        System.out.println(ad.getTeacher(1));
-        ad.removeTeacher(ad.getTeacher(1));
-       
+//        ad.removeTeacher(ad.getTeacher(1));
+//        System.out.println(ad.checkForDailyAttendance(date));
        
         
    
