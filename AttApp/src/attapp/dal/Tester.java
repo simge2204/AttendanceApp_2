@@ -22,13 +22,18 @@ public class Tester
 {
     public static void main(String[] args) throws IOException, SQLServerException, SQLException
     {
-        AttendanceDbDAO ad = new AttendanceDbDAO(); 
+//        AttendanceDbDAO ad = new AttendanceDbDAO(); 
+        
+        Authentication login = new Authentication();
+        
+        login.loginStudent("Danny@easv.dk" ,"123456");
+        System.out.println(login);
       
 ////        System.out.println(d);
 //        ad.removeStudent(ad.getStudent(2));
 //            ad.addTeacher("Hans", 1, "Hans@easv.com");
 //        System.out.println(ad.getTeacher(1));
-        ad.removeTeacher(ad.getTeacher(1));
+//        ad.removeTeacher(ad.getTeacher(1));
        
        
         
