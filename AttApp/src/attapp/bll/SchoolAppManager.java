@@ -5,7 +5,11 @@ import attapp.be.Attendance;
 import attapp.be.Student;
 import attapp.be.Teacher;
 import attapp.dal.SchoolAppDAL;
-
+import attapp.dal.AttendanceDbDAO;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 /**
  *
  * @author Christian Occhionero
@@ -13,26 +17,25 @@ import attapp.dal.SchoolAppDAL;
 public class SchoolAppManager
 {
 
-    private final SchoolAppDAL dal;
+    private final AttendanceDbDAO dal;
 
     public SchoolAppManager()
     {
-        this.dal = new SchoolAppDAL();
+        this.dal = new AttendanceDbDAO();
     }
     
-    public Student getStudent(int id)
+    public Student getStudent(int id) throws IOException, SQLException
     {
         return dal.getStudent(id);
     }
     
-
     public boolean checkForSchoolNetwork()
     {
         return dal.checkForSchoolNetWork();
                
     }
 
-    public boolean checkForDailyAttendance(Date date)
+    public boolean checkForDailyAttendance(Date date) throws IOException, SQLException
     {
        return dal.checkForDailyAttendance(date);
     }
@@ -42,8 +45,12 @@ public class SchoolAppManager
         dal.askForAttendance(id, chosenAttendance);
     }
 
-    public Teacher getTeacher()
+    public Teacher getTeacher(int id) throws IOException, SQLException 
     {
-       return dal.getTeacher();
+       return dal.getTeacher(id);
+    }
+    
+    public ArrayList<Attendance>  getAttendance( int studId)throws SQLServerException, IOException, SQLException{
+        return dal.getAttendance(studId);
     }
 }
