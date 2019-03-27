@@ -441,6 +441,13 @@ public class TeacherViewController implements Initializable
         stage.show();
     }
 
+    public void setTeacher(Teacher teacher)
+    {
+        this.teacher = teacher;
+    }
+    
+    
+
 
 
 }

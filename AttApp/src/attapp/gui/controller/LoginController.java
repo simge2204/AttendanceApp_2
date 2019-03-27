@@ -57,7 +57,7 @@ public class LoginController implements Initializable
     }
 
     @FXML
-    private void openStudent(ActionEvent event) throws IOException
+    private void openStudent(ActionEvent event) throws IOException, SQLException
     {
         if (Authentication.validateStudentLogin(username.getText(), password.getText()) == true)
         {
@@ -83,7 +83,7 @@ public class LoginController implements Initializable
     }
 
     @FXML
-    private void openTeacher(ActionEvent event) throws IOException
+    private void openTeacher(ActionEvent event) throws IOException, SQLException
     {
         if (Authentication.validateTeacherLogin(username.getText(), password.getText()) == true)
         {
