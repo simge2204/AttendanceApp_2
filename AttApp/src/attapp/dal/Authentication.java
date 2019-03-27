@@ -15,7 +15,6 @@ import java.sql.SQLException;
  */
 public class Authentication
 {
-<<<<<<< HEAD
 
 //public static boolean validateStudentLogin(String sLogin, String password)
 //{
@@ -50,10 +49,10 @@ public static boolean validateStudentLogin(String sLogin, String password)
     return false;
 }
 
-public static boolean validateTeacherLogin(String tLogin, String password)
+public static boolean validateTeacherLogin(String tLogin, String password) throws IOException, SQLServerException, SQLException
 {
     if(tLogin.equals("Hans Jensen") && password.equals("lære"))
->>>>>>> 4511cf4bcd318b0739929aa2837271cbd5b0c9b6
+
     {
         DbConnection dc = new DbConnection();
         try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select 'Email_stud', 'password' FROM LoginStud WHERE Email_stud = (?) AND password = (?)");)
