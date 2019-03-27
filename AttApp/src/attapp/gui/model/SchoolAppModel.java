@@ -82,7 +82,7 @@ public class SchoolAppModel
      s=s1;
      return s1;
     }
-    public ArrayList<Attendance>  getAttendance( int studId)throws SQLServerException, IOException, SQLException{
+    public Arraylist<Attendance>  getAttendance( int studId)throws SQLServerException, IOException, SQLException{
        ArrayList aList = manager.getAttendance(1);
        return aList; 
     }

@@ -34,12 +34,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import attapp.be.Attendance;
+import attapp.be.Person;
 import attapp.be.SchoolClass;
 import attapp.be.Student;
 import attapp.be.Teacher;
+import attapp.dal.AttendanceDbDAO;
 import attapp.gui.model.SchoolAppModel;
 import attapp.gui.controller.LoginController;
 import java.sql.SQLException;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import static org.omg.CORBA.CompletionStatusHelper.id;
 
@@ -93,6 +97,16 @@ public class TeacherViewController implements Initializable
     private AnchorPane teacherPage;
     private BorderPane rootLayout;
     @FXML
+    private Button deleteStudent;
+    @FXML
+    private Button addStudent;
+
+    private AttendanceDbDAO attDb;
+    private Student selectedStudent;
+    private SchoolClass selectedClass;
+
+    public static final ButtonType JA = null;
+    public static final ButtonType NEJ = null;
     private Button changeAbsent;
 
     /**
@@ -104,33 +118,33 @@ public class TeacherViewController implements Initializable
 
         try {
             model = new SchoolAppModel();
-            
+
             // init tableview
             name.setCellValueFactory(new PropertyValueFactory<>("name"));
             schoolClass.setCellValueFactory(new PropertyValueFactory<>("schoolClass"));
             email.setCellValueFactory(new PropertyValueFactory<>("email"));
             absence.setCellValueFactory(new PropertyValueFactory<>("abPercentage"));
             absence.setSortType(TableColumn.SortType.DESCENDING);
-            
+
             classChooser.setItems(model.getAllClasses());
             classChooser.getSelectionModel().selectFirst();
             //Setting up the charts
-            
+
             chart.setTitle("Fraværshistorik");
             chart.setLegendVisible(false);
             chart.setAnimated(false);
-            
+
             dayChart.setLegendVisible(false);
             dayChart.setTitle("Fravær pr. dag");
             dayChart.setAnimated(false);
-            
+
             tName.setText("Navn");
             tMail.setText("email");
-          
-            
+
+
 //            tName.setText(teacher.getName());
 //            tMail.setText(teacher.getEmail());
-//            
+//
             classChooser.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
             {
                 @Override
@@ -151,11 +165,11 @@ public class TeacherViewController implements Initializable
                             }
                         }
                     });
-                    
+
                 }
-                
+
             });
-            
+
             tableView.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
             {
 
@@ -167,7 +181,7 @@ public class TeacherViewController implements Initializable
                         @Override
                         public void run()
                         {
-                            
+
                             try {
                                 initStudentLineChart();
                                 initStudentBarChart();
@@ -177,7 +191,7 @@ public class TeacherViewController implements Initializable
                                 Logger.getLogger(TeacherViewController.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
-                        
+
                     });
                 }
             });
@@ -374,6 +388,19 @@ public class TeacherViewController implements Initializable
         }
     }
 
+//    private void confirmAttendance(Student std, AttendanceDbDAO attend)
+//    {
+//        if (attend.checkForDailyAttendance(date) || !(attend.checkForDailyAttendance(date)))
+//        {
+//            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+//            confirm.setHeaderText("Anmodning om rettelse af fravær");
+//            confirm.setContentText("En elev har anmodet om rettelse af sit fravær. Vil du acceptere dette?");
+//            confirm.showAndWait();
+//            confirm.setResult(JA);
+//            confirm.setResult(NEJ);
+//        }
+//    }
+
     @FXML
     private void teacherLogOut(ActionEvent event) throws IOException
     {
@@ -390,20 +417,30 @@ public class TeacherViewController implements Initializable
         this.rootLayout = rootLayout;
     }
 
-    
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    @FXML
+    private void removeStudent(ActionEvent event) throws IOException, SQLException
+    {
+        selectedClass = classChooser.getSelectionModel().getSelectedItem();
+        selectedStudent = tableView.getSelectionModel().getSelectedItem();
+        attDb.removeStudent(selectedStudent);
     }
- 
-  
-
 
     @FXML
-    private void changeAbForStud(ActionEvent event)
+    private void addStudent(ActionEvent event) throws IOException
     {
-        
+//        Student selectedStudent = tableView.getSelectionModel().getSelectedItem();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("NewStudent.fxml"));
+        Parent root2 = (Parent)fxmlLoader.load();
+        Stage stage = new Stage();
+        attapp.gui.controller.NewStudentController newController = fxmlLoader.getController();
+//        newController.setMovieModel(movieModel);
+        newController.setTeacherViewController(this);
+//        newController.setNew();
+        stage.setTitle("Tilføj elev");
+        stage.setScene(new Scene(root2));
+        stage.show();
     }
 
-            
+
 
 }

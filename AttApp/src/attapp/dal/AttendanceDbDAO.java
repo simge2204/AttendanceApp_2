@@ -28,28 +28,26 @@ import java.util.logging.Logger;
  */
 public class AttendanceDbDAO implements DAOInterface {
 
-    
-    
+
+
     @Override
     public boolean checkForDailyAttendance(Date date) throws SQLServerException, IOException, SQLException{
-//        DbConnection dc = new DbConnection();
-//         boolean wasThere = false;
-//        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select * from Attendendance where non_Attendance = (?) join abscent");){
-//            pstmt.setDate(1, date);
-//            ResultSet rs = pstmt.executeQuery();
-//            while (rs.next()) {
-//                boolean b = rs.getBoolean("abscent");
-//             wasThere = b;
-//             
-//            }
-//        }
-//        return wasThere;
-    return false;
+        DbConnection dc = new DbConnection();
+         boolean wasThere = false;
+        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select * from Attendendance where non_Attendance = (?) join absent");){
+            pstmt.setDate(1, date);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                boolean b = rs.getBoolean("absent");
+             wasThere = b;
+            }
+        }
+        return wasThere;
     }
 
     @Override
     public boolean checkForSchoolNetWork() {
-        return true; 
+        return true;
     }
 
     @Override
@@ -68,11 +66,11 @@ public class AttendanceDbDAO implements DAOInterface {
                 studToGet = new Student(name, ID, email, ""+schoolClass);
 //                    String sqlkey = "select * from Class inner join Student on Student.classID=Class.classID where Class.classID="+schoolClass ;
 //           Statement statement = con.createStatement();
-          
+
 //           ResultSet crs=statement.executeQuery(sqlkey);
 //           String sc = "";
 //           while (crs.next()) {
-//               sc=crs.getString("c_Name"); 
+//               sc=crs.getString("c_Name");
 //           }
 //                studToGet = new Student(name, ID, email, sc);
 
@@ -108,7 +106,7 @@ public class AttendanceDbDAO implements DAOInterface {
 
     }
 
-  
+
 
     @Override
     public void removeStudent(Student StudToRemove) throws IOException, SQLServerException, SQLException {
@@ -122,7 +120,7 @@ public class AttendanceDbDAO implements DAOInterface {
 
         }
     }
-    
+
 
     @Override
     public Student addStudent(String name, int Id, String Email, int schoolClass) throws IOException, SQLServerException, SQLException {
@@ -142,21 +140,21 @@ public class AttendanceDbDAO implements DAOInterface {
             ResultSet generatedKeys = pstmt.getGeneratedKeys();
 
             int key=0;
-            
+
             if (generatedKeys.next()) {
               key= generatedKeys.getInt(1);
-               
+
             }
-           
-            String sqlkey = "select * from Class inner join Student on Student.classID=Class.classID where Class.classID="+key; 
+
+            String sqlkey = "select * from Class inner join Student on Student.classID=Class.classID where Class.classID="+key;
            Statement statement = con.createStatement();
-          
+
            ResultSet rs=statement.executeQuery(sqlkey);
            String sc = "";
            while (rs.next()) {
-               sc=rs.getString("c_Name"); 
+               sc=rs.getString("c_Name");
            }
-           
+
             addedStudent = new Student(name, generatedKeys.getInt(1), Email, sc);
         }
 
@@ -220,7 +218,5 @@ public class AttendanceDbDAO implements DAOInterface {
         }
     }
 
-  
+
 }
-
-
