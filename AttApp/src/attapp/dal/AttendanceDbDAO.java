@@ -10,17 +10,15 @@ import attapp.be.Student;
 import attapp.be.Teacher;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
+
 import java.sql.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -34,7 +32,7 @@ public class AttendanceDbDAO implements DAOInterface {
     public boolean checkForDailyAttendance(Date date) throws SQLServerException, IOException, SQLException{
         DbConnection dc = new DbConnection();
          boolean wasThere = false;
-        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select * from Attendendance where non_Attendance = (?) join absent");){
+        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Update absent from Attendendance where non_Attendance = (?) join absent");){
             pstmt.setDate(1, date);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
