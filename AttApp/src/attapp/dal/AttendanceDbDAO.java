@@ -10,14 +10,13 @@ import attapp.be.Student;
 import attapp.be.Teacher;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
+
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -32,12 +31,12 @@ import java.util.logging.Logger;
 public class AttendanceDbDAO implements DAOInterface {
 
     private Student currentStudent;
-    
+
     @Override
     public boolean checkForDailyAttendance(Date date) throws SQLServerException, IOException, SQLException{
         DbConnection dc = new DbConnection();
          boolean wasThere = false;
-        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select * from Attendendance where non_Attendance = (?) join absent");){
+        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Update absent from Attendendance where non_Attendance = (?) join absent");){
             pstmt.setDate(1, date);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -47,11 +46,11 @@ public class AttendanceDbDAO implements DAOInterface {
         }
         return wasThere;
     }
-    
+
     public Student getCurrentStudent() {
         return currentStudent;
     }
-    
+
     public void setCurrentStudent(Student currentStudent) {
         this.currentStudent = currentStudent;
     }
@@ -60,7 +59,7 @@ public class AttendanceDbDAO implements DAOInterface {
     public boolean checkForSchoolNetWork() {
         return true;
     }
-    
+
 //    public List<Student> getStudent() throws IOException, SQLException
 //    {
 //        DbConnection ds = new DbConnection();
@@ -124,9 +123,9 @@ public class AttendanceDbDAO implements DAOInterface {
     }
 
     @Override
-    public void askForAttendance(int id, Attendance attendance) { 
-        DateFormat dateFormat = new SimpleDateFormat("mm-dd-yyyy");  
-        String strDate = dateFormat.format(attendance);  
+    public void askForAttendance(int id, Attendance attendance) {
+        DateFormat dateFormat = new SimpleDateFormat("mm-dd-yyyy");
+        String strDate = dateFormat.format(attendance);
         DbConnection dc = new DbConnection();
         try {
             Connection con = dc.getConnection();
@@ -144,7 +143,7 @@ public class AttendanceDbDAO implements DAOInterface {
             Logger.getLogger(AttendanceDbDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 
     @Override
     public Teacher getTeacher(int id) throws SQLServerException, IOException, SQLException {

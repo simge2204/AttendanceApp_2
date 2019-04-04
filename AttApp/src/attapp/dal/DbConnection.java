@@ -25,12 +25,12 @@ public class DbConnection
     {
         setupDataSource();
     }
-    
+
     public Connection getConnection() throws SQLServerException
     {
         return ds.getConnection();
     }
-    
+
     private  void setupDataSource(){
      ds.setDatabaseName("AttendanceAppDatabase");
      ds.setUser("CS2018A_6");

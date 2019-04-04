@@ -26,8 +26,8 @@ public class Tester
 
         Authentication login = new Authentication();
 
-        login.loginStudent("Danny@easv.dk" ,"123456");
-        System.out.println(login);
+//        login.loginStudent("Danny@easv.dk" ,"123456");
+//        System.out.println(login);
 
 ////        System.out.println(d);
 //        ad.removeStudent(ad.getStudent(2));
