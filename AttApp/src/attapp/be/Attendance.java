@@ -21,6 +21,12 @@ public class Attendance
     private StringProperty date;
     private boolean requestAttendance;
 
+   
+        
+
+    
+    
+    
     public Attendance(Calendar dt, boolean here)
     {
         wasThere = new SimpleBooleanProperty();

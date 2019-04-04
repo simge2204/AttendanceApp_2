@@ -65,8 +65,14 @@
       <Label fx:id="tName" layoutX="168.0" layoutY="67.0" prefHeight="26.0" prefWidth="146.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="40.0" />
       <Label fx:id="tMail" layoutX="160.0" layoutY="72.0" prefHeight="21.0" prefWidth="180.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="72.0" />
       <Button layoutX="520.0" layoutY="14.0" mnemonicParsing="false" onAction="#teacherLogOut" text="Log ud" AnchorPane.bottomAnchor="620.0" AnchorPane.leftAnchor="490.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+<<<<<<< HEAD
       <Button fx:id="deleteStudent" layoutX="345.0" layoutY="382.0" mnemonicParsing="false" onAction="#removeStudent" text="Slet elev" AnchorPane.bottomAnchor="255.0" AnchorPane.leftAnchor="345.0" AnchorPane.rightAnchor="143.0" AnchorPane.topAnchor="382.0" />
       <Button fx:id="changeAbsent" layoutX="464.0" layoutY="382.0" mnemonicParsing="false" onAction="#changeAbForStud" text="Ændre fravær" />
       <Button fx:id="addStudent" layoutX="229.0" layoutY="382.0" mnemonicParsing="false" onAction="#addStudent" text="Tilføj elev" AnchorPane.bottomAnchor="255.0" AnchorPane.leftAnchor="229.0" AnchorPane.rightAnchor="261.0" AnchorPane.topAnchor="382.0" />
+=======
+      <Button fx:id="deleteStudent" layoutX="521.0" layoutY="387.0" mnemonicParsing="false" onAction="#removeStudent" text="Slet elev" AnchorPane.bottomAnchor="255.0" AnchorPane.leftAnchor="480.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="382.0" />
+      <Button fx:id="changeAbsent" layoutX="445.0" layoutY="386.0" mnemonicParsing="false" onAction="#changeAbForStud" text="Ændre fravær" />
+      <Button fx:id="addStudent" layoutX="389.0" layoutY="387.0" mnemonicParsing="false" onAction="#addStudent" text="Tilføj elev" AnchorPane.bottomAnchor="255.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="382.0" />
+>>>>>>> parent of cba99e0... student
    </children>
 </AnchorPane>

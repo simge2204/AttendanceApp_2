@@ -24,10 +24,6 @@ public class Student extends Person
     private DoubleProperty abPercentage;
     private ArrayList<Attendance> attenlist;
 
-    public Student(String name, int id, String email) {
-        super(name, id, email);
-    }
-
     public Student(String name, int id, String email, String schoolClass)
     {
 

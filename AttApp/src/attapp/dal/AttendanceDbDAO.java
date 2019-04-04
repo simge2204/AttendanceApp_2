@@ -20,11 +20,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.sql.Date;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 =======
 >>>>>>> parent of d91a0ee... Update AttendanceDbDAO.java
+=======
+>>>>>>> parent of cba99e0... student
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,7 +37,11 @@ import java.util.logging.Logger;
  */
 public class AttendanceDbDAO implements DAOInterface {
 
+<<<<<<< HEAD
     private Student currentStudent;
+=======
+
+>>>>>>> parent of cba99e0... student
 
     @Override
     public boolean checkForDailyAttendance(Date date) throws SQLServerException, IOException, SQLException{
@@ -50,6 +57,7 @@ public class AttendanceDbDAO implements DAOInterface {
         }
         return wasThere;
     }
+<<<<<<< HEAD
 
     public Student getCurrentStudent() {
         return currentStudent;
@@ -58,11 +66,14 @@ public class AttendanceDbDAO implements DAOInterface {
     public void setCurrentStudent(Student currentStudent) {
         this.currentStudent = currentStudent;
     }
+=======
+>>>>>>> parent of cba99e0... student
 
     @Override
     public boolean checkForSchoolNetWork() {
         return true;
     }
+<<<<<<< HEAD
 
 //    public List<Student> getStudent() throws IOException, SQLException
 //    {
@@ -95,6 +106,8 @@ public class AttendanceDbDAO implements DAOInterface {
 //            return null;
 //        }
 //    }
+=======
+>>>>>>> parent of cba99e0... student
 
     @Override
     public Student getStudent(int id) throws SQLServerException, IOException, SQLException {
@@ -127,6 +140,7 @@ public class AttendanceDbDAO implements DAOInterface {
     }
 
     @Override
+<<<<<<< HEAD
     public void askForAttendance(int id, Attendance attendance) {
         DateFormat dateFormat = new SimpleDateFormat("mm-dd-yyyy");
         String strDate = dateFormat.format(attendance);
@@ -148,6 +162,11 @@ public class AttendanceDbDAO implements DAOInterface {
         }
     }
 
+=======
+    public void askForAttendance(int id, Attendance chosenAttendance) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+>>>>>>> parent of cba99e0... student
 
     @Override
     public Teacher getTeacher(int id) throws SQLServerException, IOException, SQLException {
