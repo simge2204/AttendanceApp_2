@@ -17,54 +17,66 @@ import java.lang.String;
  */
 public class Authentication
 {
-
 public static boolean validateStudentLogin(String sLogin, String password) throws IOException, SQLServerException, SQLException
 {
      DbConnection dc = new DbConnection();
-//        try (Connection con = dc.getConnection())
-//        {
-//            PreparedStatement pstmt;
-//            pstmt = con.prepareStatement("Select * FROM Password");
-//            ResultSet rs = pstmt.executeQuery();
-//            while(rs.next())
-//            {
-//                Person std = Person(name, id, email);
-//
-//            }
-//        }
-
-        if(sLogin.equals("Wilhelm Hansen") && password.equals("xsdc"))
+        try (Connection con = dc.getConnection())
+        {
+            PreparedStatement pstmt;
+            pstmt = con.prepareStatement("Select * FROM LoginStud");
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next())
             {
-                return true;
+                sLogin = rs.getString("Email_stud");
+                password = rs.getString("password");
+
             }
+        }
 
-
-    return false;
-}
-
-public static boolean validateTeacherLogin(String tLogin, String password) throws IOException, SQLServerException, SQLException
-{
-    if(tLogin.equals("Hans Jensen") && password.equals("lære"))
-
-    {
+//        if(sLogin.equals("Wilhelm Hansen") && password.equals("xsdc"))
+//            {
+//                return true;
+//            }
+//
+//
+//    return false;
+//}
+//
+//public static boolean validateTeacherLogin(String tLogin, String password) throws IOException, SQLServerException, SQLException
+//{
+//    if(tLogin.equals("Hans Jensen") && password.equals("lære"))
+//
+//    {
+//        return true;
+//    }
+//
+//    return false;
         return true;
-    }
-
-    return false;
 }
 
         public Student loginStudent(String email, String password) throws SQLServerException, IOException, SQLException
         {
         DbConnection dc = new DbConnection();
-        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select 'Email_stud', 'password' FROM LoginStud WHERE Email_stud = (?) AND password = (?)");)
+        Student s = null;
+        if(!(email == null) && !(password == null))
         {
-            Student loginStud = null;
+        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select * FROM LoginStud inner join Student on Student.studentID = LoginStud.studentID WHERE Email_stud = (?) AND password = (?)");)
+        {
             pstmt.setString(1, email);
             pstmt.setString(2, password);
+//            pstmt.setInt(loginStud, id);
             pstmt.execute();
-
-            return loginStud;
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next())
+            {
+                int studentID = rs.getInt("StudentID");
+                String name = rs.getString("s_Name");
+//                int classID = rs.getInt("ClassID");
+                s = new Student(name, studentID, email);
+                
+            }
         }
-
-    }
+        }
+        return s;
+        }
 }

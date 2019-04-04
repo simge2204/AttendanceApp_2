@@ -65,9 +65,10 @@ public class LoginController implements Initializable
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/StudentView.fxml"));
                 Parent root = loader.load();
                 StudentViewController controller = loader.getController();
-                controller.setStudent(sam.getStudent());
+                controller.setStudent(sam.getStudent(6));
                 controller.setRootLayout(rootLayout);
                 rootLayout.setCenter(root);
+                System.out.println(sam.getStudent(6)+ " student from sam");
             } catch (SQLException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -85,8 +86,8 @@ public class LoginController implements Initializable
     @FXML
     private void openTeacher(ActionEvent event) throws IOException, SQLException
     {
-        if (Authentication.validateTeacherLogin(username.getText(), password.getText()) == true)
-        {
+//        if (Authentication.loginStudent(username.getText(), password.getText()) == true)
+//        {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/TeacherView.fxml"));
                 Parent root = loader.load();
@@ -98,10 +99,10 @@ public class LoginController implements Initializable
             } catch (SQLException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else
-        {
-            infoLabel.setText("Please type a valid password");
-        }
+//        } else
+//        {
+//            infoLabel.setText("Please type a valid password");
+//        }
     }
 
 }

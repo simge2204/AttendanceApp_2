@@ -6,6 +6,8 @@
 package attapp.gui.controller;
 
 import attapp.be.Student;
+import attapp.gui.model.SchoolAppModel;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -35,6 +37,7 @@ public class NewStudentController implements Initializable {
     private Button annStd;
     
     TeacherViewController teacherController = new TeacherViewController();
+    SchoolAppModel appModel;
     private Student selectedStudent;
     private int type = 1;
 
@@ -47,47 +50,55 @@ public class NewStudentController implements Initializable {
     }    
 
     @FXML
-    private void tilføjElev(ActionEvent event) {
+    private void tilføjElev(ActionEvent event) throws IOException, SQLException {
         String Navn = name.getText();
-        String Klasse = schoolClass.getText();
+        int Klasse = Integer.parseInt(schoolClass.getText());
         String Email = email.getText();
+        int id = 0;
+        
         Stage stage = (Stage) addStd.getScene().getWindow();
-//        switch (type) 
-//        {
-//            case 1:
-//                Model.tilføjElev(Navn, Klasse, Email);
-//                break;
+        switch (type) 
+        {
+            case 1:
+                appModel.addStudent(Navn, id, Email, Klasse);
+                break;
 //            case 2:
 //                selectedStudent.setName(Navn);
 //                selectedStudent.setText(Klasse);
 //                selectedStudent.setText(Email);
 //                break;
-//            default:
-//                System.out.println("Something went wrong");
-//                stage.close();
-//                break;
+            default:
+                System.out.println("Something went wrong");
+                stage.close();
+                break;
 //       }
 //        
 //        teacherController.reload();
 //        stage.close();
+    }
     }
 //
     public void setTeacherViewController(TeacherViewController teacherController) 
         {
         this.teacherController = teacherController;
         }
+    
+    public void setAppModel(SchoolAppModel appModel)
+    {
+        this.appModel = appModel;
+    }
 //
 //    public void setEdit() throws SQLException
 //        {
 //        type = 2;
 //        }
 //
-//    public void setNew()
-//        {
-//        type = 1;
-//        }
+    public void setNew()
+        {
+        type = 1;
+        }
     
-    public void setMovie(Student selectedStudent)
+    public void setStudent(Student selectedStudent) 
         {
         this.selectedStudent = selectedStudent;
         name.setText(selectedStudent.getName());

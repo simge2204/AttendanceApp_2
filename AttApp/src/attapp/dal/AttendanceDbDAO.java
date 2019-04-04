@@ -19,6 +19,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,8 +31,8 @@ import java.util.logging.Logger;
  */
 public class AttendanceDbDAO implements DAOInterface {
 
-
-
+    private Student currentStudent;
+    
     @Override
     public boolean checkForDailyAttendance(Date date) throws SQLServerException, IOException, SQLException{
         DbConnection dc = new DbConnection();
@@ -44,11 +47,51 @@ public class AttendanceDbDAO implements DAOInterface {
         }
         return wasThere;
     }
+    
+    public Student getCurrentStudent() {
+        return currentStudent;
+    }
+    
+    public void setCurrentStudent(Student currentStudent) {
+        this.currentStudent = currentStudent;
+    }
 
     @Override
     public boolean checkForSchoolNetWork() {
         return true;
     }
+    
+//    public List<Student> getStudent() throws IOException, SQLException
+//    {
+//        DbConnection ds = new DbConnection();
+//        try (Connection con = ds.getConnection()) {
+//            String query = "SELECT * FROM [Student]";
+//            Statement stmt = con.createStatement();
+//            ResultSet rs = stmt.executeQuery(query);
+//
+//            ArrayList<Student> students = new ArrayList<>();
+//            while (rs.next()) {
+//
+//                String studentString = "";
+//                studentString += rs.getString("id");
+//                studentString += rs.getString("s_Name");
+//                studentString += rs.getString("s_Email");
+//                studentString += rs.getString("password");
+//                studentString += rs.getString("classid");
+//
+//                students.add(
+//                        rs.getString("studID"),
+//                        rs.getString("s_Name"),
+//                        rs.getString("s_Email"),
+//                        rs.getString("password"),
+//                        rs.getString("classid"));
+//            }
+//            return students;
+//             } catch (SQLException sqle) {
+//            System.err.println(sqle);
+//            return null;
+//        }
+//    }
 
     @Override
     public Student getStudent(int id) throws SQLServerException, IOException, SQLException {
@@ -81,9 +124,27 @@ public class AttendanceDbDAO implements DAOInterface {
     }
 
     @Override
-    public void askForAttendance(int id, Attendance chosenAttendance) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void askForAttendance(int id, Attendance attendance) { 
+        DateFormat dateFormat = new SimpleDateFormat("mm-dd-yyyy");  
+        String strDate = dateFormat.format(attendance);  
+        DbConnection dc = new DbConnection();
+        try {
+            Connection con = dc.getConnection();
+            PreparedStatement pstmt;
+            pstmt = con.prepareStatement("Select * FROM Attendance WHERE studentID = (?)");
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+//                attendance = rs.getString(strDate);
+                id = rs.getInt("studentID");
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AttendanceDbDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    
 
     @Override
     public Teacher getTeacher(int id) throws SQLServerException, IOException, SQLException {

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -76,14 +77,17 @@ public class SchoolAppModel
         t=t1;
         return t1;
     }
-    public Student getStudent() throws IOException, SQLException
-    {
-    Student s1 = manager.getStudent(1); 
-     s=s1;
-     return s1;
-    }
+//    public ArrayList<Student> getListOfStudents()
+//    {
+//        return 
+//    }
+   
     public ArrayList<Attendance>  getAttendance( int studId)throws SQLServerException, IOException, SQLException{
        ArrayList aList = manager.getAttendance(1);
        return aList; 
+    }
+    public void addStudent(String name, int Id, String Email, int schoolClass) throws IOException, SQLException
+    {
+        manager.addStudent(name, Id, Email, schoolClass);
     }
 }
