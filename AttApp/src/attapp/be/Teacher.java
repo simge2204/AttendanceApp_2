@@ -10,10 +10,13 @@ public class Teacher extends Person
 {
 private ArrayList<SchoolClass> classes;
 
+
+
  public Teacher (String name, int id, String email)
     {
        super(name,  id, email);
         classes = new ArrayList<>();
+        
     }
  
  public void addClass(SchoolClass classToAdd)
@@ -25,4 +28,10 @@ private ArrayList<SchoolClass> classes;
  {
      return classes;
  }
+ 
+     @Override
+    public String toString() {
+        return "Teacher{" + "classes=" + classes + '}';
+    }
 }
+

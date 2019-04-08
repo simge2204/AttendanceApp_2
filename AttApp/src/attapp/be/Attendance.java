@@ -13,20 +13,13 @@ import javafx.beans.property.StringProperty;
  */
 public class Attendance
 {
-    
-    private Date dateo; 
+
     private Calendar curDate;
     private BooleanProperty wasThere;
     private StringProperty attendance;
     private StringProperty date;
     private boolean requestAttendance;
 
-   
-        
-
-    
-    
-    
     public Attendance(Calendar dt, boolean here)
     {
         wasThere = new SimpleBooleanProperty();
@@ -51,14 +44,6 @@ public class Attendance
          month++;
         int year = curDate.get(Calendar.YEAR);
         date.set(""+day+"/"+month+"-"+year);
-    }
-
-    
-    
-    public Attendance(java.sql.Date dateo, Boolean wasThere) {
-//       this.dateo=dateo;
-//       this.wasThere=this.wasThere;
-
     }
 
     public Calendar getCurDate()
@@ -96,12 +81,4 @@ public class Attendance
    {
        return requestAttendance;
    }
-
-    @Override
-    public String toString() {
-        return "Attendance{" + "dateo=" + dateo + ", wasThere=" + wasThere + ", requestAttendance=" + requestAttendance + '}';
-    }
-
-   
-   
 }

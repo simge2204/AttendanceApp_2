@@ -9,6 +9,8 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import static jdk.nashorn.internal.objects.NativeMath.round;
 
 /**
@@ -18,11 +20,10 @@ import static jdk.nashorn.internal.objects.NativeMath.round;
 public class Student extends Person
 {
 
-    private ArrayList<Attendance> fullAttendance;
+    private ObservableList<Attendance> fullAttendance;
      private StringProperty schoolClass;
     private double absencePercentage = 0;
     private DoubleProperty abPercentage;
-    private ArrayList<Attendance> attenlist;
 
     public Student(String name, int id, String email, String schoolClass)
     {
@@ -30,13 +31,13 @@ public class Student extends Person
         super(name, id, email);
         this.schoolClass = new SimpleStringProperty();
         abPercentage = new SimpleDoubleProperty();
-        fullAttendance = new ArrayList<>();
+        fullAttendance = FXCollections.observableArrayList();
         this.schoolClass.set(schoolClass);
     }
 
- 
+   
 
-    public void addAttendance(Calendar theDate, boolean wasThere) // needs fix 
+    public void addAttendance(Calendar theDate, boolean wasThere)
     {
         fullAttendance.add(new Attendance(theDate, wasThere));
 
@@ -55,7 +56,7 @@ public class Student extends Person
         abPercentage.set(absencePercentage);
     }
 
-    public ArrayList<Attendance> getFullAttendance()
+    public ObservableList<Attendance> getFullAttendance()
     {
         return fullAttendance;
     }
@@ -126,5 +127,12 @@ public class Student extends Person
 
         return allDays;
     }
+
+    @Override
+    public String toString() {
+        return "Student{" + "fullAttendance=" + fullAttendance + ", schoolClass=" + schoolClass + ", absencePercentage=" + absencePercentage + ", abPercentage=" + abPercentage + '}';
+    }
+    
+    
 
 }

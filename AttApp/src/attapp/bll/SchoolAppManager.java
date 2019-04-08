@@ -4,38 +4,42 @@ import java.sql.Date;
 import attapp.be.Attendance;
 import attapp.be.Student;
 import attapp.be.Teacher;
+import attapp.dal.Authentication;
 import attapp.dal.SchoolAppDAL;
-import attapp.dal.AttendanceDbDAO;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+
 /**
  *
  * @author Christian Occhionero
  */
 public class SchoolAppManager
 {
+    private final Authentication authentication;
+    private final SchoolAppDAL dal;
 
-    private final AttendanceDbDAO dal;
-
-    public SchoolAppManager()
+    public SchoolAppManager() throws IOException
     {
-        this.dal = new AttendanceDbDAO();
+        authentication = new Authentication();
+        this.dal = new SchoolAppDAL();
     }
     
-    public Student getStudent(int id) throws IOException, SQLException
+    public Student getStudent(String username, String password)
     {
-        return dal.getStudent(id);
+        return dal.getStudent(0);
     }
     
+    public Student getLoginStudent (String username, String password) throws SQLException{
+        return authentication.validateStudentLogin(username, password);
+    }
+
     public boolean checkForSchoolNetwork()
     {
         return dal.checkForSchoolNetWork();
                
     }
 
-    public boolean checkForDailyAttendance(Date date) throws IOException, SQLException
+    public boolean checkForDailyAttendance(Date date)
     {
        return dal.checkForDailyAttendance(date);
     }
@@ -45,12 +49,15 @@ public class SchoolAppManager
         dal.askForAttendance(id, chosenAttendance);
     }
 
-    public Teacher getTeacher(int id) throws IOException, SQLException 
+    public Teacher getLoginTeacher(String username, String password) throws SQLException
     {
-       return dal.getTeacher(id);
+       return authentication.validateTeacherLogin(username, password);
     }
-    
-    public ArrayList<Attendance>  getAttendance( int studId)throws SQLServerException, IOException, SQLException{
-        return dal.getAttendance(studId);
+
+    public Teacher getTeacher(String username, String password) {
+        return dal.getTeacher();
     }
+
+
+
 }

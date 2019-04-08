@@ -62,7 +62,7 @@ public class SchoolApp extends Application
         Scene scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
-        initView(); //bad stuff
+        initView();
         CreateContextMenu();
         primaryStage.show();
 
@@ -110,7 +110,7 @@ public class SchoolApp extends Application
     {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(SchoolApp.class.getResource("/attapp/gui/view/LoginView.fxml"));
-        AnchorPane logIn = (AnchorPane) loader.load();  //bad stuff
+        AnchorPane logIn = (AnchorPane) loader.load();
 
         LoginController controller = loader.getController();
         controller.setRootLayout(rootLayout);

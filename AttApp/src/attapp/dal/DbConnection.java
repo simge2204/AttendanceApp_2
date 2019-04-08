@@ -14,61 +14,28 @@ import java.util.Properties;
 
 /**
  * Connects to Database with database information.
+ *
  * @author Philip
  */
-public class DbConnection
+public class DbConnection {
 
-{
-    private static final String PROP_FILE = "data/database.info";
-    private final SQLServerDataSource ds;
+    private static final String SERVER_NAME = "10.176.111.31";
+    private static final String DATABASE_NAME = "AttendanceAppDatabase";
+    private static final String USER = "CS2018A_6";
+    private static final String PASSWORD = "CS2018A_6";
 
-    public DbConnection() throws IOException
-    {
-        Properties databaseProperties = new Properties();
-        databaseProperties.load(new FileInputStream(PROP_FILE));
+    private static SQLServerDataSource ds;
+
+    public DbConnection(){
         ds = new SQLServerDataSource();
-//        ds.setServerName(databaseProperties.getProperty("easv-db2"));
-//        ds.setDatabaseName(databaseProperties.getProperty("AttendanceAppDatabase"));
-//        ds.setUser(databaseProperties.getProperty("CS2018A_6"));
-//        ds.setPassword(databaseProperties.getProperty("CS2018A_6"));
-        ds.setServerName(databaseProperties.getProperty("Server"));
-        ds.setDatabaseName(databaseProperties.getProperty("Database"));
-        ds.setUser(databaseProperties.getProperty("User"));
-        ds.setPassword(databaseProperties.getProperty("Password"));
+        ds.setServerName(SERVER_NAME);
+        ds.setDatabaseName(DATABASE_NAME);
+        ds.setUser(USER);
+        ds.setPassword(PASSWORD);
     }
 
-    public Connection getConnection() throws SQLServerException
-    {
-        return ds.getConnection();
+    public Connection getConnection() throws SQLServerException {
+        Connection con = ds.getConnection();
+        return con;
     }
-<<<<<<< HEAD
-
-    private  void setupDataSource(){
-     ds.setDatabaseName("AttendanceAppDatabase");
-     ds.setUser("CS2018A_6");
-     ds.setPassword("CS2018A_6");
-     ds.setPortNumber(1433);
-     ds.setServerName("10.176.111.31");
-    }
-//    private static final String PROP_FILE = "C:/Github2/AttendanceApp_2/AttApp/src/attapp/data/database.info";
-//    private final SQLServerDataSource ds;
-//
-//    public DbConnection() throws IOException
-//    {
-//        Properties databaseProperties = new Properties();
-//        databaseProperties.load(new FileInputStream(PROP_FILE));
-//        ds = new SQLServerDataSource();
-//        ds.setServerName(databaseProperties.getProperty("Server"));
-//        ds.setDatabaseName(databaseProperties.getProperty("Database"));
-//        ds.setUser(databaseProperties.getProperty("User"));
-//        ds.setPassword(databaseProperties.getProperty("Password"));
-//    }
-//
-//    public Connection getConnection() throws SQLServerException
-//    {
-//        return ds.getConnection();
-//    }
 }
-=======
-}
->>>>>>> parent of cba99e0... student
