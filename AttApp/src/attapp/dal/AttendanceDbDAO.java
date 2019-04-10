@@ -10,26 +10,21 @@ import attapp.be.Student;
 import attapp.be.Teacher;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.sql.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+
 
 /**
  *
  * @author Christian Occhionero
  */
-public class AttendanceDbDAO implements DAOInterface {
-
-    
-    
+public class AttendanceDbDAO implements DAOInterface 
+{
     @Override
     public boolean checkForDailyAttendance(Date date) throws SQLServerException, IOException, SQLException{
         DbConnection dc = new DbConnection();
@@ -119,6 +114,29 @@ public class AttendanceDbDAO implements DAOInterface {
         }
     }
 
+    public ArrayList<Attendance> getAttendance( int studId)throws SQLServerException, IOException, SQLException{
+        DbConnection dc = new DbConnection();
+       ArrayList<Attendance> attenList = new ArrayList<>();
+        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("select * from Attendance where studentID=(?)  ;")) {
+            Attendance AttenToGet = null;
+//              Attendance AttenToGet new Attendance(2019-04-01, true)
+              pstmt.setInt(1, studId);
+//               pstmt.setDate(2, td);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Date date = rs.getDate("attendanceDay");
+                Boolean wasThere = rs.getBoolean("attendance");
+
+                AttenToGet = new Attendance(date, wasThere);
+                System.out.println(AttenToGet = new Attendance(date, wasThere));
+                attenList.add(AttenToGet);
+            }
+            return attenList;
+        }
+
+    }
+    
     @Override
     public void removeStudent(Student StudToRemove) throws IOException, SQLServerException, SQLException {
          int studId = StudToRemove.getId();
@@ -195,6 +213,44 @@ public class AttendanceDbDAO implements DAOInterface {
 
         return addedTeacher;
     }
+    
+    public Attendance addAttendanceDays(int id) throws SQLServerException, SQLException
+    {
+        Attendance at = null;
+        DbConnection ds = new DbConnection();
+        String SQL = "INSERT INTO Attendance (studentID, attendanceDay, attendance) VALUES ((?), GETDATE(), (?))";
+        try(Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(SQL);)
+        {
+            pstmt.setInt(1, id);
+            pstmt.setBoolean(2, false);
+            pstmt.execute();
+             
+        }
+        return at;
+    }
+    
+    public void editAttendance(int id, Date date) throws SQLServerException, SQLException, IOException
+    {
+        Attendance at = null;
+        DbConnection dc = new DbConnection();
+        try(Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("UPDATE Attendance SET attendance = '1' "
+                + "WHERE studentID = (?) AND attendanceDay = (?); ");)
+        {
+            
+            pstmt.setInt(1, id);
+            pstmt.setDate(2, date);
+            pstmt.execute();
+            
+//            while (rs.next())
+//            {
+//                Date dateo = rs.getDate("attendanceDay");
+//                boolean attend = rs.getBoolean("attendance");
+//                
+//                at = new Attendance(dateo, attend);
+//            }
+            
+        }
+//        return at;
+   }
 }
-
 

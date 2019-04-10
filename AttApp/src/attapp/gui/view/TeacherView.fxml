@@ -65,5 +65,6 @@
       <Label fx:id="tName" layoutX="168.0" layoutY="67.0" prefHeight="26.0" prefWidth="146.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="40.0" />
       <Label fx:id="tMail" layoutX="160.0" layoutY="72.0" prefHeight="21.0" prefWidth="180.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="72.0" />
       <Button layoutX="520.0" layoutY="14.0" mnemonicParsing="false" onAction="#teacherLogOut" text="Log ud" AnchorPane.bottomAnchor="620.0" AnchorPane.leftAnchor="490.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <Button layoutX="456.0" layoutY="386.0" mnemonicParsing="false" onAction="#openListOfAbsence" text="Ændre fravær" />
    </children>
 </AnchorPane>

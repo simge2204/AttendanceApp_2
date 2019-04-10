@@ -99,9 +99,11 @@ public class TeacherViewController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
 
-        try {
+        try 
+        {
             model = new SchoolAppModel();
-        } catch (IOException ex) {
+        } catch (IOException ex) 
+        {
             Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -371,13 +373,27 @@ public class TeacherViewController implements Initializable
         rootLayout.setCenter(root);
     }
     
-        public static void setTeacher(Teacher t) {
+    public static void setTeacher(Teacher t) 
+    {
         TeacherViewController.teacher = t;
     }
 
     void setRootLayout(BorderPane rootLayout)
     {
         this.rootLayout = rootLayout;
+    }
+
+    @FXML
+    private void openListOfAbsence(ActionEvent event) throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/ListOfAbsence.fxml"));
+        Parent root = loader.load();
+        
+        ListOfAbsenceController aController = loader.getController();
+        
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show(); 
     }
  
 

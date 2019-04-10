@@ -18,10 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import attapp.dal.Authentication;
-import com.sun.org.apache.bcel.internal.generic.DALOAD;
 import java.sql.SQLException;
 
 /**

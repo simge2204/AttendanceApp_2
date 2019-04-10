@@ -14,36 +14,43 @@ import javafx.beans.property.StringProperty;
 public class Attendance
 {
 
+    private Date dateo;
     private Calendar curDate;
     private BooleanProperty wasThere;
     private StringProperty attendance;
-    private StringProperty date;
+//    private Date date;
+
     private boolean requestAttendance;
 
     public Attendance(Calendar dt, boolean here)
     {
         wasThere = new SimpleBooleanProperty();
         attendance = new SimpleStringProperty();
-        date = new SimpleStringProperty();
-        requestAttendance=false;
- 
-        this.curDate = dt;
-        wasThere.setValue(here);
-        if(here==true)
+//        date = new SimpleStringProperty();
+        requestAttendance = false;
+
+    }
+
+    public Attendance(Date dateo, boolean wasThere)
+    {
+
+        this.wasThere = new SimpleBooleanProperty();
+
+        this.wasThere.set(wasThere);
+
+        this.dateo = dateo;
+    }
+
+    public String getAttendance()
+    {
+        if (wasThere.getValue() == true)
         {
-            attendance.set("Godkendt");
-        }
-        else
+            return ("True");
+        } else
         {
-            attendance.set("Fravær");
+            return ("False");
         }
-        
-        // set the time with date and year
-        int day = curDate.get(Calendar.DAY_OF_MONTH);
-        int month = curDate.get(Calendar.MONTH);
-         month++;
-        int year = curDate.get(Calendar.YEAR);
-        date.set(""+day+"/"+month+"-"+year);
+
     }
 
     public Calendar getCurDate()
@@ -58,27 +65,35 @@ public class Attendance
 
     public String getDate()
     {
-        return date.get();
+        return dateo.toString();
+
     }
 
-    public String getAttendance()
+//    public String getAttendance()
+//    {
+//        return attendance.get();
+//    }
+//
+    public void setAttendance(String insert)
     {
-        return attendance.get();
+        attendance.set(insert);
+    }
+
+    public void setRequestAttendance(boolean x)
+    {
+        requestAttendance = x;
+    }
+
+    public boolean getRequestAttendance()
+    {
+        return requestAttendance;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Attendance{" + "dateo=" + dateo + ", wasThere=" + wasThere + '}';
     }
     
     
-   public void setAttendance(String insert)
-   {
-       attendance.set(insert);
-   }
-   
-   public void setRequestAttendance(boolean x)
-   {
-       requestAttendance=x;
-   }
-   
-   public boolean getRequestAttendance()
-   {
-       return requestAttendance;
-   }
 }
