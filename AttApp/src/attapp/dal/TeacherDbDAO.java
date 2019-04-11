@@ -10,7 +10,10 @@ import attapp.be.Student;
 import attapp.be.Teacher;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 
@@ -35,10 +38,6 @@ public class TeacherDbDAO implements DAOInterface {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Teacher getTeacher() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     @Override
     public void removeStudent(Student StudToRemove) throws IOException, SQLServerException, SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -46,7 +45,23 @@ public class TeacherDbDAO implements DAOInterface {
 
     @Override
     public Teacher getTeacher(int id) throws SQLServerException, IOException, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DbConnection dc = new DbConnection();
+        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("Select "
+                + "* FROM Teacher WHERE teacherID = (?)");) {
+            Teacher teachToGet = null;
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString("t_Name");
+                int ID = rs.getInt("teacherID");
+                String email = rs.getString("t_Email");
+
+                teachToGet = new Teacher(name, ID, email);
+
+            }
+            return teachToGet;
+        }
     }
 
     @Override
@@ -68,5 +83,5 @@ public class TeacherDbDAO implements DAOInterface {
     public Student getStudent(int id) throws SQLServerException, IOException, SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

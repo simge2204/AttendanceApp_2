@@ -1,5 +1,7 @@
 package attapp.gui.model;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import attapp.be.Attendance;
@@ -11,7 +13,6 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
  *
@@ -20,32 +21,20 @@ import java.util.ArrayList;
 public class SchoolAppModel
 {
 
-    private SchoolAppManager manager;
+    private final SchoolAppManager manager;
     private Student s;
     private ObservableList<Attendance> oList;
     private ObservableList<SchoolClass> classList;
     private Teacher t;
 
-    public SchoolAppModel() throws IOException, SQLException
+    public SchoolAppModel() throws IOException
     {
         this.manager = new SchoolAppManager();
-        s = manager.getStudent(6);
         classList=FXCollections.observableArrayList();
         classList.add(new SchoolClass("Hold"));
-        System.out.println(s);
-            oList = FXCollections.observableArrayList(manager.getAttendance(s.getId())); //null pointer ra student
+        
     }
-
-    public Student getStudent(int id) throws IOException, SQLException
-    {
-        return manager.getStudent(6);
-
-    }
-
-    public ObservableList<Attendance> getList()
-    {
-        return oList;
-    }
+    
     
     public ObservableList<SchoolClass> getAllClasses()
     {
@@ -68,22 +57,9 @@ public class SchoolAppModel
         manager.askForAttendance(id,chosenAttendance);
     }
 
-    public Teacher getTeacher() throws IOException, SQLException
-    {
-        Teacher t1 = manager.getTeacher(8);
-        classList.addAll(manager.getTeacher(8).getAllClasses());
-        System.out.println(manager.getTeacher(8).getAllClasses());
-        t=t1;
-        return t1;
+public ArrayList<Attendance>  getAttendance( int studId)throws SQLServerException, IOException, SQLException{
+        return manager.getAttendance(studId);
     }
-    public Student getStudent() throws IOException, SQLException
-    {
-    Student s1 = manager.getStudent(1); 
-     s=s1;
-     return s1;
-    }
-    public ArrayList<Attendance>  getAttendance( int studId)throws SQLServerException, IOException, SQLException{
-       ArrayList aList = manager.getAttendance(1);
-       return aList; 
-    }
+    
+    
 }

@@ -34,18 +34,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import attapp.be.Attendance;
-import attapp.be.Person;
 import attapp.be.SchoolClass;
 import attapp.be.Student;
 import attapp.be.Teacher;
-import attapp.dal.AttendanceDbDAO;
 import attapp.gui.model.SchoolAppModel;
 import attapp.gui.controller.LoginController;
-import java.sql.SQLException;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
-import static org.omg.CORBA.CompletionStatusHelper.id;
 
 /**
  * FXML Controller class
@@ -54,8 +48,8 @@ import static org.omg.CORBA.CompletionStatusHelper.id;
  */
 public class TeacherViewController implements Initializable
 {
+    private static Teacher teacher;
 
-    private Teacher teacher;
     @FXML
     private TableView<Student> tableView;
     @FXML
@@ -89,6 +83,7 @@ public class TeacherViewController implements Initializable
     @FXML
     private CategoryAxis dayX;
 
+
     @FXML
     private Label tName;
     @FXML
@@ -96,19 +91,6 @@ public class TeacherViewController implements Initializable
     @FXML
     private AnchorPane teacherPage;
     private BorderPane rootLayout;
-    @FXML
-    private Button deleteStudent;
-    @FXML
-    private Button addStudent;
-
-    private AttendanceDbDAO attDb;
-    private Student selectedStudent;
-    private SchoolClass selectedClass;
-
-    public static final ButtonType JA = null;
-    public static final ButtonType NEJ = null;
-    @FXML
-    private Button changeAbsent;
 
     /**
      * Initializes the controller class.
@@ -117,90 +99,81 @@ public class TeacherViewController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
 
-        try {
+        try 
+        {
             model = new SchoolAppModel();
-
-            // init tableview
-            name.setCellValueFactory(new PropertyValueFactory<>("name"));
-            schoolClass.setCellValueFactory(new PropertyValueFactory<>("schoolClass"));
-            email.setCellValueFactory(new PropertyValueFactory<>("email"));
-            absence.setCellValueFactory(new PropertyValueFactory<>("abPercentage"));
-            absence.setSortType(TableColumn.SortType.DESCENDING);
-
-            classChooser.setItems(model.getAllClasses());
-            classChooser.getSelectionModel().selectFirst();
-            //Setting up the charts
-
-            chart.setTitle("Fraværshistorik");
-            chart.setLegendVisible(false);
-            chart.setAnimated(false);
-
-            dayChart.setLegendVisible(false);
-            dayChart.setTitle("Fravær pr. dag");
-            dayChart.setAnimated(false);
-
-            tName.setText("Navn");
-            tMail.setText("email");
-
-
-//            tName.setText(teacher.getName());
-//            tMail.setText(teacher.getEmail());
-//
-            classChooser.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
-            {
-                @Override
-                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
-                {
-                    Platform.runLater(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            try
-                            {
-                                setTableView();
-                                calculateAverageAbsence();
-                            } catch (ParseException ex)
-                            {
-                                Logger.getLogger(TeacherViewController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
-                    });
-
-                }
-
-            });
-
-            tableView.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
-            {
-
-                @Override
-                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
-                {
-                    Platform.runLater(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-
-                            try {
-                                initStudentLineChart();
-                                initStudentBarChart();
-                            } catch (IOException ex) {
-                                Logger.getLogger(TeacherViewController.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (SQLException ex) {
-                                Logger.getLogger(TeacherViewController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
-
-                    });
-                }
-            });
-        } catch (IOException ex) {
-            Logger.getLogger(TeacherViewController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(TeacherViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) 
+        {
+            Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        
+        // init tableview
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        schoolClass.setCellValueFactory(new PropertyValueFactory<>("schoolClass"));
+        email.setCellValueFactory(new PropertyValueFactory<>("email"));
+        absence.setCellValueFactory(new PropertyValueFactory<>("abPercentage"));
+        absence.setSortType(TableColumn.SortType.DESCENDING);
+
+        classChooser.setItems(model.getAllClasses());
+        classChooser.getSelectionModel().selectFirst();
+        //Setting up the charts
+
+        chart.setTitle("Fraværshistorik");
+        chart.setLegendVisible(false);
+        chart.setAnimated(false);
+
+        dayChart.setLegendVisible(false);
+        dayChart.setTitle("Fravær pr. dag");
+        dayChart.setAnimated(false);
+
+        tName.setText(teacher.getName());
+        tMail.setText(teacher.getEmail());
+
+        classChooser.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
+            {
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        try
+                        {
+                            setTableView();
+                            calculateAverageAbsence();
+                        } catch (ParseException ex)
+                        {
+                            Logger.getLogger(TeacherViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                });
+
+            }
+
+        });
+
+        tableView.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
+        {
+
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
+            {
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+
+                        initStudentLineChart();
+                        initStudentBarChart();
+                    }
+
+                });
+            }
+        });
 
     }
 
@@ -212,7 +185,7 @@ public class TeacherViewController implements Initializable
 
     }
 
-    private void initStudentLineChart() throws IOException, SQLException
+    private void initStudentLineChart()
     {
         chart.getData().clear();
         // Gets the selected student
@@ -224,11 +197,11 @@ public class TeacherViewController implements Initializable
 
     }
 
-    private void calculateAbsence(Student s) throws IOException, SQLException
+    private void calculateAbsence(Student s)
     {
 
         XYChart.Series<String, Double> series = new XYChart.Series<>();
-        ArrayList<Attendance> allAttendance = model.getAttendance(s.getId());
+        ObservableList<Attendance> allAttendance = s.getFullAttendance();
 
         int numberOfDays = 0;
         double daysAttended = 0;
@@ -305,7 +278,7 @@ public class TeacherViewController implements Initializable
         XYChart.Series<String, Double> series = new XYChart.Series<>();
         if (tableView.getSelectionModel().getSelectedItem() != null)
         {
-            ArrayList<Attendance> allAttendance = tableView.getSelectionModel().getSelectedItem().getFullAttendance();
+            ObservableList<Attendance> allAttendance = tableView.getSelectionModel().getSelectedItem().getFullAttendance();
 
             int numberOfDays = 0;
             double daysAttended = 0;
@@ -389,19 +362,6 @@ public class TeacherViewController implements Initializable
         }
     }
 
-//    private void confirmAttendance(Student std, AttendanceDbDAO attend)
-//    {
-//        if (attend.checkForDailyAttendance(date) || !(attend.checkForDailyAttendance(date)))
-//        {
-//            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-//            confirm.setHeaderText("Anmodning om rettelse af fravær");
-//            confirm.setContentText("En elev har anmodet om rettelse af sit fravær. Vil du acceptere dette?");
-//            confirm.showAndWait();
-//            confirm.setResult(JA);
-//            confirm.setResult(NEJ);
-//        }
-//    }
-
     @FXML
     private void teacherLogOut(ActionEvent event) throws IOException
     {
@@ -412,6 +372,11 @@ public class TeacherViewController implements Initializable
         con.setRootLayout(rootLayout);
         rootLayout.setCenter(root);
     }
+    
+    public static void setTeacher(Teacher t) 
+    {
+        TeacherViewController.teacher = t;
+    }
 
     void setRootLayout(BorderPane rootLayout)
     {
@@ -419,41 +384,19 @@ public class TeacherViewController implements Initializable
     }
 
     @FXML
-    private void removeStudent(ActionEvent event) throws IOException, SQLException
+    private void openListOfAbsence(ActionEvent event) throws IOException
     {
-        selectedClass = classChooser.getSelectionModel().getSelectedItem();
-        selectedStudent = tableView.getSelectionModel().getSelectedItem();
-        attDb.removeStudent(selectedStudent);
-    }
-
-    @FXML
-    private void addStudent(ActionEvent event) throws IOException
-    {
-//        Student selectedStudent = tableView.getSelectionModel().getSelectedItem();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("NewStudent.fxml"));
-        Parent root2 = (Parent)fxmlLoader.load();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/ListOfAbsence.fxml"));
+        Parent root = loader.load();
+        
+        ListOfAbsenceController aController = loader.getController();
+        
         Stage stage = new Stage();
-        attapp.gui.controller.NewStudentController newController = fxmlLoader.getController();
-//        newController.setMovieModel(movieModel);
-        newController.setTeacherViewController(this);
-//        newController.setNew();
-        stage.setTitle("Tilføj elev");
-        stage.setScene(new Scene(root2));
-        stage.show();
+        stage.setScene(new Scene(root));
+        stage.show(); 
     }
+ 
 
-    public void setTeacher(Teacher teacher)
-    {
-        this.teacher = teacher;
-    }
-
-    @FXML
-    private void changeAbForStud(ActionEvent event)
-    {
-    }
-    
-    
-
-
+            
 
 }

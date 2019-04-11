@@ -1,5 +1,11 @@
 package attapp.gui.controller;
 
+import attapp.be.Student;
+import attapp.be.Teacher;
+import attapp.dal.Authentication;
+import attapp.dal.AttendanceDbDAO;
+import attapp.dal.StudentDbDAO;
+import attapp.bll.SchoolAppManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,13 +18,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import attapp.dal.Authentication;
-import attapp.gui.model.SchoolAppModel;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * FXML Controller class
@@ -40,13 +41,12 @@ public class LoginController implements Initializable
     private TextField username;
     @FXML
     private Label infoLabel;
-    
-    SchoolAppModel sam;
-    
-    public LoginController() throws IOException, SQLException {
-        sam = new SchoolAppModel(); //badstuff
-    }
 
+    SchoolAppManager bll;
+
+    public LoginController() throws IOException {
+        this.bll = new SchoolAppManager();
+    }
     /**
      * Initializes the controller class.
      */
@@ -59,18 +59,17 @@ public class LoginController implements Initializable
     @FXML
     private void openStudent(ActionEvent event) throws IOException, SQLException
     {
-        if (Authentication.validateStudentLogin(username.getText(), password.getText()) == true)
+        Student stud = bll.getLoginStudent(username.getText(), password.getText());
+        if (stud != null)
         {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/StudentView.fxml"));
-                Parent root = loader.load();
-                StudentViewController controller = loader.getController();
-                controller.setStudent(sam.getStudent());
-                controller.setRootLayout(rootLayout);
-                rootLayout.setCenter(root);
-            } catch (SQLException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/StudentView.fxml"));
+            
+            StudentViewController.setStudent(stud);
+            Parent root = loader.load();
+            StudentViewController controller = loader.getController();
+            System.out.println(controller);
+            controller.setRootLayout(rootLayout);
+            rootLayout.setCenter(root);
         } else
         {
             infoLabel.setText("Please type a valid password");
@@ -79,25 +78,24 @@ public class LoginController implements Initializable
 
     public void setRootLayout(BorderPane rootLayout)
     {
+        System.out.println(rootLayout);
         this.rootLayout = rootLayout;
     }
 
     @FXML
     private void openTeacher(ActionEvent event) throws IOException, SQLException
     {
-        if (Authentication.validateTeacherLogin(username.getText(), password.getText()) == true)
+        Teacher teach = bll.getLoginTeacher(username.getText(), password.getText());
+                if (teach != null)
         {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/TeacherView.fxml"));
-                Parent root = loader.load();
-                TeacherViewController controller = loader.getController();
-                controller.setTeacher(sam.getTeacher());
-                
-                controller.setRootLayout(rootLayout);
-                rootLayout.setCenter(root);
-            } catch (SQLException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/TeacherView.fxml"));
+            
+            TeacherViewController.setTeacher(teach);
+            Parent root = loader.load();
+            TeacherViewController controller = loader.getController();
+            System.out.println(controller);
+            controller.setRootLayout(rootLayout);
+            rootLayout.setCenter(root);
         } else
         {
             infoLabel.setText("Please type a valid password");
