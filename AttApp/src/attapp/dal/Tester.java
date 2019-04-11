@@ -23,15 +23,7 @@ public class Tester
 {
     public static void main(String[] args) throws IOException, SQLServerException, SQLException
     {
-//        Student stud = new Student("Peter", 4, "pt@easv.dk", "20");
-        AttendanceDbDAO ad = new AttendanceDbDAO(); 
-        System.out.println( ad.getAttendance(4));
-        
-//        ad.editAttendance(4, Date.valueOf("2019-04-08"), true);
-////        System.out.println(d);
-//        ad.removeStudent(ad.getStudent(2));
-//            ad.addTeacher("Hans", 1, "Hans@easv.com");
-//        System.out.println(ad.getTeacher(1));
+
        
        
         

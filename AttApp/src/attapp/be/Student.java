@@ -43,7 +43,9 @@ public class Student extends Person
 
    
 
+
     public void addAttendance() throws IOException, SQLException
+
     {
 //        fullAttendance=(ObservableList<Attendance>) Dao.getAttendance(this.getId());
         fullAttendance = FXCollections.observableArrayList(dal.getAttendance(this.getId()));

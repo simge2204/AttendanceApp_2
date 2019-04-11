@@ -14,6 +14,7 @@ import java.sql.SQLException;
  */
 public class Authentication
 {
+
     public static DbConnection ds;
     
     public Authentication(){
@@ -106,4 +107,5 @@ public static Teacher validateTeacherLogin(String username, String password) thr
 }
 
     
+
 }

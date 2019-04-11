@@ -42,8 +42,10 @@ public class AttendanceDbDAO implements DAOInterface
 
     @Override
     public boolean checkForSchoolNetWork() {
+
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return true; 
+
     }
 
     @Override
@@ -115,6 +117,10 @@ public class AttendanceDbDAO implements DAOInterface
         }
     }
 
+
+       
+    
+    
     @Override
     public void removeStudent(Student StudToRemove) throws IOException, SQLServerException, SQLException {
          int studId = StudToRemove.getId();
@@ -138,7 +144,6 @@ public class AttendanceDbDAO implements DAOInterface
 
         try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);) {
             pstmt.setString(1, name);
-//            pstmt.setInt(2, Id);
             pstmt.setString(2, Email);
             pstmt.setInt(3, schoolClass);
 
@@ -177,7 +182,6 @@ public class AttendanceDbDAO implements DAOInterface
 
         try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);) {
             pstmt.setString(1, name);
-//            pstmt.setInt(2, Id);
             pstmt.setString(2, Email);
 
             pstmt.execute();
@@ -192,49 +196,36 @@ public class AttendanceDbDAO implements DAOInterface
         return addedTeacher;
     }
     
-    public static Attendance addAttendanceDays(Date date, Student stud, boolean attend) throws SQLServerException, SQLException
+
+  
+    public Attendance addAttendanceDays(int id) throws SQLServerException, SQLException
     {
         Attendance at = null;
         DbConnection ds = new DbConnection();
         String SQL = "INSERT INTO Attendance (studentID, attendanceDay, attendance) VALUES ((?), GETDATE(), (?))";
         try(Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(SQL);)
         {
-            pstmt.setInt(1, stud.getId());
+            pstmt.setInt(1,id);
             pstmt.setBoolean(2, false);
             
-            ResultSet rs = pstmt.executeQuery();
-            
-            while(rs.next())
-            {
-                date = rs.getDate("attendanceDay");
-                attend = rs.getBoolean("attendance");
-                
-                
-                at = new Attendance(date, attend);
-            } 
+             pstmt.execute();
+          
         }
         return at;
     }
     
-    public Attendance editAttendance(int id, Date date, boolean attend) throws SQLServerException, SQLException, IOException
+    public Attendance editAttendance(int id, Date date) throws SQLServerException, SQLException, IOException
     {
         Attendance at = null;
         DbConnection dc = new DbConnection();
-        try(Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("UPDATE Attendance SET attendance = '(?)' "
-                + "WHERE studentID = (?) AND attendanceDay = '(?)'; ");)
+        try(Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("UPDATE Attendance SET attendance = '1' "
+                + "WHERE studentID = (?) AND attendanceDay = (?); ");)
         {
-            pstmt.setBoolean(1, true);
-            pstmt.setInt(2, id);
-            pstmt.setDate(3, date);
-            ResultSet rs = pstmt.executeQuery();
+            pstmt.setInt(1, id);
+            pstmt.setDate(2, date);
+             pstmt.execute();
             
-            while (rs.next())
-            {
-                Date dateo = rs.getDate("attendanceDay");
-                attend = rs.getBoolean("attendance");
-                
-                at = new Attendance(dateo, attend);
-            }   
+        
         }
         return at;
     }
@@ -254,9 +245,9 @@ public class AttendanceDbDAO implements DAOInterface
                 attenList.add(AttenToGet);
             }
             return attenList;
+
         }
 
-    }
 }
-
-
+     
+}

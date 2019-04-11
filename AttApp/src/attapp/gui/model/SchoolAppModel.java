@@ -32,13 +32,12 @@ public class SchoolAppModel
         this.manager = new SchoolAppManager();
         classList=FXCollections.observableArrayList();
         classList.add(new SchoolClass("Hold"));
-        
+
     }
     
     
     public ObservableList<SchoolClass> getAllClasses()
     {
-
         return classList;
     }
     
@@ -57,9 +56,16 @@ public class SchoolAppModel
         manager.askForAttendance(id,chosenAttendance);
     }
 
+
 public ArrayList<Attendance>  getAttendance( int studId)throws SQLServerException, IOException, SQLException{
         return manager.getAttendance(studId);
+}
+    public void editAttendance(int id, Date date) throws SQLException, SQLServerException, IOException
+    {
+        manager.editAttendance(id, date);
     }
+    
+  
     
     
 }

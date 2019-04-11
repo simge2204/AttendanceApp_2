@@ -78,6 +78,7 @@ public class Attendance
     {
         attendance.set(insert);
     }
+   
 
     public void setRequestAttendance(boolean x)
     {
@@ -90,9 +91,11 @@ public class Attendance
     }
 
     @Override
-    public String toString() {
-        return "Attendance{" + "dateo=" + dateo + ", curDate=" + curDate + ", wasThere=" + wasThere + ", attendance=" + attendance + ", requestAttendance=" + requestAttendance + '}';
+    public String toString()
+    {
+        return "Attendance{" + "dateo=" + dateo + ", wasThere=" + wasThere + '}';
     }
-
+    
+    
 
 }

@@ -83,6 +83,7 @@ public class StudentViewController implements Initializable
 
         try {
 
+
             try {
                 model = new SchoolAppModel();
             } catch (IOException ex) {
@@ -116,13 +117,16 @@ public class StudentViewController implements Initializable
             
             name.setText(student.getName());
             email.setText(student.getEmail());
-        } catch (IOException ex) {
-            Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch(IOException io){
+            Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE,null,io);
+            
+        }
+        catch(SQLException sqle){
+            Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE,null,sqle);
     }
-
+    }
+    
     private void calculateAbsence()
     {
         XYChart.Series<String, Double> series = new XYChart.Series<>();
@@ -147,10 +151,13 @@ public class StudentViewController implements Initializable
 
     }
 
+
     private void showAlert() throws IOException, SQLException
     {
         if (model.checkForSchoolNetwork() == true) 
 //                && model.checkForDailyAttendance(Date.valueOf(LocalDate.MAX)) == false)
+         
+
         {
             Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
             showAlert.setHeaderText("Fraværs alarm");
@@ -162,6 +169,7 @@ public class StudentViewController implements Initializable
     @FXML
     private void askForAttendance(ActionEvent event)
     {
+
         Attendance chosenAttendance = tableView.getSelectionModel().getSelectedItem();
 
         if (chosenAttendance != null && chosenAttendance.getWasThere() == false && chosenAttendance.getRequestAttendance() == false)
