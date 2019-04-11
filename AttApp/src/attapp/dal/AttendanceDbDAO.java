@@ -119,9 +119,7 @@ public class AttendanceDbDAO implements DAOInterface
        ArrayList<Attendance> attenList = new ArrayList<>();
         try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("select * from Attendance where studentID=(?)  ;")) {
             Attendance AttenToGet = null;
-//              Attendance AttenToGet new Attendance(2019-04-01, true)
               pstmt.setInt(1, studId);
-//               pstmt.setDate(2, td);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -129,7 +127,6 @@ public class AttendanceDbDAO implements DAOInterface
                 Boolean wasThere = rs.getBoolean("attendance");
 
                 AttenToGet = new Attendance(date, wasThere);
-                System.out.println(AttenToGet = new Attendance(date, wasThere));
                 attenList.add(AttenToGet);
             }
             return attenList;
@@ -160,7 +157,6 @@ public class AttendanceDbDAO implements DAOInterface
 
         try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);) {
             pstmt.setString(1, name);
-//            pstmt.setInt(2, Id);
             pstmt.setString(2, Email);
             pstmt.setInt(3, schoolClass);
 
@@ -199,7 +195,6 @@ public class AttendanceDbDAO implements DAOInterface
 
         try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);) {
             pstmt.setString(1, name);
-//            pstmt.setInt(2, Id);
             pstmt.setString(2, Email);
 
             pstmt.execute();
@@ -240,17 +235,7 @@ public class AttendanceDbDAO implements DAOInterface
             pstmt.setInt(1, id);
             pstmt.setDate(2, date);
             pstmt.execute();
-            
-//            while (rs.next())
-//            {
-//                Date dateo = rs.getDate("attendanceDay");
-//                boolean attend = rs.getBoolean("attendance");
-//                
-//                at = new Attendance(dateo, attend);
-//            }
-            
         }
-//        return at;
-   }
+    }
 }
 

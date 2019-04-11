@@ -1,7 +1,5 @@
 package attapp.gui.model;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import attapp.be.Attendance;
@@ -9,8 +7,10 @@ import attapp.be.SchoolClass;
 import attapp.be.Student;
 import attapp.be.Teacher;
 import attapp.bll.SchoolAppManager;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 
 /**
  *
@@ -35,7 +35,6 @@ public class SchoolAppModel
     
     public ObservableList<SchoolClass> getAllClasses()
     {
-
         return classList;
     }
     
@@ -54,7 +53,13 @@ public class SchoolAppModel
         manager.askForAttendance(id,chosenAttendance);
     }
 
-
+    public void editAttendance(int id, Date date) throws SQLException, SQLServerException, IOException
+    {
+        manager.editAttendance(id, date);
+    }
     
-    
+    public ObservableList<Attendance>getAttendance()
+    {
+        return oList;
+    }
 }

@@ -4,10 +4,13 @@ import java.sql.Date;
 import attapp.be.Attendance;
 import attapp.be.Student;
 import attapp.be.Teacher;
+import attapp.dal.AttendanceDbDAO;
 import attapp.dal.Authentication;
 import attapp.dal.SchoolAppDAL;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,11 +20,13 @@ public class SchoolAppManager
 {
     private final Authentication authentication;
     private final SchoolAppDAL dal;
+    private final AttendanceDbDAO Attend;
 
     public SchoolAppManager() throws IOException
     {
         authentication = new Authentication();
         this.dal = new SchoolAppDAL();
+        Attend = new AttendanceDbDAO();
     }
     
     public Student getStudent(String username, String password)
@@ -58,6 +63,15 @@ public class SchoolAppManager
         return dal.getTeacher();
     }
 
+    public void editAttendance(int id, Date date) throws SQLException, SQLServerException, IOException
+    {
+        Attend.editAttendance(id, date);
+    }
 
-
+    public ArrayList<Attendance> getAttendance(int studId) throws IOException, SQLException
+    {
+        return Attend.getAttendance(studId);
+    }
+    
+    
 }
