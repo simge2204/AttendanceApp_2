@@ -383,18 +383,7 @@ public class TeacherViewController implements Initializable
         this.rootLayout = rootLayout;
     }
 
-    @FXML
-    private void openListOfAbsence(ActionEvent event) throws IOException
-    {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/ListOfAbsence.fxml"));
-        Parent root = loader.load();
-        
-        ListOfAbsenceController aController = loader.getController();
-        
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show(); 
-    }
+    
  
 
             
