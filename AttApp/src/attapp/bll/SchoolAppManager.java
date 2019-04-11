@@ -68,25 +68,12 @@ public class SchoolAppManager
     public ArrayList<Attendance>  getAttendance( int studId)throws SQLServerException, IOException, SQLException{
         return dal.getAttendance(studId);
     }
-//    public Teacher getTeacher(String username, String password) throws IOException, SQLException {
-//        return dal.getTeacher();
-//    }//    public Teacher getTeacher(String username, String password) throws IOException, SQLException {
-//        return dal.getTeacher();
-//    }//    public Teacher getTeacher(String username, String password) throws IOException, SQLException {
-//        return dal.getTeacher();
-//    }//    public Teacher getTeacher(String username, String password) throws IOException, SQLException {
-//        return dal.getTeacher();
-//    }
-
-
-
-
 
 //    public Teacher getTeacher(String username, String password) {
 //        return dal.getTeacher();
 //    }
 
-    public void editAttendance(int id, Date date) throws SQLException, SQLServerException, IOException
+    public void editAttendance(int id, String date) throws SQLException, SQLServerException, IOException
     {
         dal.editAttendance(id, date);
     }

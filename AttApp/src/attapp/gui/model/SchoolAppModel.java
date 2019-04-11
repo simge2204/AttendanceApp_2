@@ -60,7 +60,7 @@ public class SchoolAppModel
 public ArrayList<Attendance>  getAttendance( int studId)throws SQLServerException, IOException, SQLException{
         return manager.getAttendance(studId);
 }
-    public void editAttendance(int id, Date date) throws SQLException, SQLServerException, IOException
+    public void editAttendance(int id, String date) throws SQLException, SQLServerException, IOException
     {
         manager.editAttendance(id, date);
     }

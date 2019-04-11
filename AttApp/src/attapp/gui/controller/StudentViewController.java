@@ -32,6 +32,7 @@ import attapp.be.Attendance;
 import attapp.be.Student;
 import attapp.gui.model.SchoolAppModel;
 import attapp.gui.controller.LoginController;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -167,40 +168,6 @@ public class StudentViewController implements Initializable
     }
 
     @FXML
-    private void askForAttendance(ActionEvent event)
-    {
-
-        Attendance chosenAttendance = tableView.getSelectionModel().getSelectedItem();
-
-        if (chosenAttendance != null && chosenAttendance.getWasThere() == false && chosenAttendance.getRequestAttendance() == false)
-        {
-            Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
-            showAlert.setHeaderText("Anmodning om godkendelse");
-            showAlert.setContentText("Din anmodning om godkendelse af fravær d. " + chosenAttendance.getDateo() + " er sendt til din lærer!");
-            showAlert.showAndWait();
-            chosenAttendance.setAttendance("Fravær (Anmodet om godkendelse)");
-            chosenAttendance.setRequestAttendance(true);
-            model.askForAttendance(student.getId(), chosenAttendance);
-            tableView.refresh();
-            return;
-        }
-
-        if (chosenAttendance != null)
-        {
-            Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
-            showAlert.setHeaderText("Anmodning om godkendelse");
-            showAlert.setContentText("Du har ikke fravær den valgte dag");
-            showAlert.showAndWait();
-        } else
-        {
-            Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
-            showAlert.setHeaderText("Anmodning om godkendelse");
-            showAlert.setContentText("Du har ikke valgt en dag");
-            showAlert.showAndWait();
-        }
-    }
-
-    @FXML
     private void openChart(MouseEvent event)
     {
         Stage newStage = new Stage();
@@ -269,6 +236,27 @@ public class StudentViewController implements Initializable
 
     public static void setStudent(Student s) {
         StudentViewController.student = s;
+    }
+
+    @FXML
+    private void editAttendance(ActionEvent event) throws SQLException, SQLServerException, IOException
+    {   
+        Attendance chosenAttendance = tableView.getSelectionModel().getSelectedItem();
+        
+        if (chosenAttendance != null && chosenAttendance.getWasThere() == false)
+        {
+            model.editAttendance(student.getId(), chosenAttendance.getDateo());
+//            tableView.getColumns().get(0).setVisible(false);
+//            tableView.getColumns().get(0).setVisible(true);  
+        }
+        else
+        {
+            Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
+            showAlert.setHeaderText("Anmodning om godkendelse");
+            showAlert.setContentText("Du har ikke valgt en dag");
+            showAlert.showAndWait();
+        }
+        
     }
     
     
