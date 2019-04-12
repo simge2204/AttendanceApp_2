@@ -39,6 +39,13 @@ public class SchoolAppManager
         return dal.getStudent(0);
     }
     
+    public Student getStudent(int id) throws IOException, SQLException
+    {
+        return dal.getStudent(id);
+    }
+
+    
+    
     public Student getLoginStudent (String username, String password) throws SQLException{
         return authentication.validateStudentLogin(username, password);
     }
@@ -78,6 +85,10 @@ public class SchoolAppManager
         dal.editAttendance(id, date);
     }
 
+    public Attendance addAttendanceDays(int id) throws SQLServerException, SQLException
+    {
+        return dal.addAttendanceDays(id);
+    }
     
     
         

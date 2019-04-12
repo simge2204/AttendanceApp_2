@@ -57,15 +57,21 @@ public class SchoolAppModel
     }
 
 
-public ArrayList<Attendance>  getAttendance( int studId)throws SQLServerException, IOException, SQLException{
+    public ArrayList<Attendance>  getAttendance( int studId)throws SQLServerException, IOException, SQLException
+    {
         return manager.getAttendance(studId);
-}
+    }   
+    
     public void editAttendance(int id, String date) throws SQLException, SQLServerException, IOException
     {
         manager.editAttendance(id, date);
+        
     }
     
-  
+    public Attendance addAttendanceDays(int id) throws SQLServerException, SQLException
+    {
+        return manager.addAttendanceDays(id);
+    }
     
     
 }

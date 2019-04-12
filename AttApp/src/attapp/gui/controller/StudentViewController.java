@@ -2,8 +2,6 @@ package attapp.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,15 +28,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import attapp.be.Attendance;
 import attapp.be.Student;
+import attapp.bll.SchoolAppManager;
 import attapp.gui.model.SchoolAppModel;
-import attapp.gui.controller.LoginController;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.Node;
 
 /**
  *
@@ -54,7 +49,7 @@ public class StudentViewController implements Initializable
     private attapp.gui.controller.LoginController mainViewController;
     private ObservableList<String> allOfDays = FXCollections.observableArrayList();
     private BorderPane rootLayout;
-    
+
     @FXML
     private Label absence;
     @FXML
@@ -77,54 +72,53 @@ public class StudentViewController implements Initializable
     private Button logUd;
     @FXML
     private AnchorPane studentPage;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
 
-        try {
+        try
+        {
 
-
-            try {
+            try
+            {
                 model = new SchoolAppModel();
-            } catch (IOException ex) {
+            } catch (IOException ex)
+            {
                 Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+            showAlert();
+
             double ab = student.getAbsencePercentage();
             String toShow = String.format("%.1f", ab);
             absence.setText(toShow + "%");
             name.setText(student.getName());
             date.setSortType(TableColumn.SortType.DESCENDING);
-            
+
             // init tableview
             date.setCellValueFactory(new PropertyValueFactory<>("dateo"));
             presence.setCellValueFactory(new PropertyValueFactory<>("wasThere"));
             student.addAttendance();
             tableView.setItems(student.getFullAttendance());
-          
-            
+
             chart.setTitle("Fraværshistorik");
             chart.setLegendVisible(false);
             chart.setTitleSide(Side.TOP);
             percentage.setLowerBound(0);
             percentage.setUpperBound(100);
-            
+
             calculateAbsence();
             tableView.getSortOrder().setAll(date);
-            
+
             name.setText(student.getName());
             email.setText(student.getEmail());
+        } catch (IOException | SQLException io)
+        {
+            Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, io);
+
         }
-        catch(IOException io){
-            Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE,null,io);
-            
-        }
-        catch(SQLException sqle){
-            Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE,null,sqle);
     }
-    }
-    
+
     private void calculateAbsence()
     {
         XYChart.Series<String, Double> series = new XYChart.Series<>();
@@ -149,14 +143,18 @@ public class StudentViewController implements Initializable
 
     }
 
-
     private void showAlert() throws IOException, SQLException
     {
-        if (model.checkForSchoolNetwork() == true) 
-//                && model.checkForDailyAttendance(Date.valueOf(LocalDate.MAX)) == false)
-         
-
+        if (model.checkForSchoolNetwork() == false)
         {
+            Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
+            showAlert.setHeaderText("Netværks alarm");
+            showAlert.setContentText("Du er ikke på skolens netværk!");
+            showAlert.showAndWait();
+        }
+        if (model.checkForSchoolNetwork() == true)
+        {
+            model.addAttendanceDays(student.getId());
             Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
             showAlert.setHeaderText("Fraværs alarm");
             showAlert.setContentText("Du er ikke registreret for i dag - lad mig gøre det for dig!");
@@ -197,10 +195,9 @@ public class StudentViewController implements Initializable
         y.setLabel("Fravær i procent");
         x.setLabel("Antal skoledage");
 
-        
         BorderPane bPane = new BorderPane();
         bPane.setCenter(l);
-        
+
         bPane.getStyleClass().add("background");
 
         Scene newScene = new Scene(bPane);
@@ -217,35 +214,34 @@ public class StudentViewController implements Initializable
 
     @FXML
     private void studentLogOut(ActionEvent event) throws IOException
-        {
+    {
 
-         FXMLLoader loader  = new FXMLLoader(getClass().getResource("/attapp/gui/view/LoginView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/LoginView.fxml"));
         Parent root = loader.load();
         LoginController con = loader.getController();
         con.setRootLayout(rootLayout);
         rootLayout.setCenter(root);
-        }
+    }
 
     void setRootLayout(BorderPane rootLayout)
     {
-      this.rootLayout=rootLayout;
+        this.rootLayout = rootLayout;
     }
 
-    public static void setStudent(Student s) {
+    public static void setStudent(Student s)
+    {
         StudentViewController.student = s;
     }
 
     @FXML
     private void editAttendance(ActionEvent event) throws SQLException, SQLServerException, IOException
-    {   
+    {
         Attendance chosenAttendance = tableView.getSelectionModel().getSelectedItem();
-        
+
         if (chosenAttendance != null && chosenAttendance.getWasThere() == false)
         {
             model.editAttendance(student.getId(), chosenAttendance.getDateo());
-//            tableView.getColumns().get(0).setVisible(false);
-//            tableView.getColumns().get(0).setVisible(true);  
-        }
+        } 
         else
         {
             Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -253,8 +249,6 @@ public class StudentViewController implements Initializable
             showAlert.setContentText("Du har ikke valgt en dag");
             showAlert.showAndWait();
         }
-        
     }
-    
-    
+
 }
