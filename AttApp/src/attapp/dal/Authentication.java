@@ -44,7 +44,6 @@ public static Student validateStudentLogin(String username, String password) thr
             String email = rs.getString("s_Email");
             String className = rs.getString("c_Name");
             stud = new Student(name, id, email, className);
-            System.out.println("DAMN");
 
         }
     }
@@ -84,8 +83,6 @@ public static Teacher validateTeacherLogin(String username, String password) thr
             String email = rs.getString("t_Email");
 
             teach = new Teacher(name, id, email);
-            System.out.println("Hey Teach");
-
         }
         if (teach !=null)
         {

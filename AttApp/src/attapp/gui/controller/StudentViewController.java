@@ -78,7 +78,7 @@ public class StudentViewController implements Initializable
     @FXML
     private AnchorPane studentPage;
     
-
+    @Override
     public void initialize(URL url, ResourceBundle rb)
     {
 
@@ -90,11 +90,8 @@ public class StudentViewController implements Initializable
             } catch (IOException ex) {
                 Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            showAlert();
             
-            System.out.println("stud i sTudentView"+student+"  "+student.getName());
             double ab = student.getAbsencePercentage();
-            System.out.println("ab: " + ab);
             String toShow = String.format("%.1f", ab);
             absence.setText(toShow + "%");
             name.setText(student.getName());

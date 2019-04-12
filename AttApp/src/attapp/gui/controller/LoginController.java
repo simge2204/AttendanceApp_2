@@ -67,7 +67,6 @@ public class LoginController implements Initializable
             StudentViewController.setStudent(stud);
             Parent root = loader.load();
             StudentViewController controller = loader.getController();
-            System.out.println(controller);
             controller.setRootLayout(rootLayout);
             rootLayout.setCenter(root);
         } else
@@ -78,7 +77,6 @@ public class LoginController implements Initializable
 
     public void setRootLayout(BorderPane rootLayout)
     {
-        System.out.println(rootLayout);
         this.rootLayout = rootLayout;
     }
 
@@ -93,7 +91,6 @@ public class LoginController implements Initializable
             TeacherViewController.setTeacher(teach);
             Parent root = loader.load();
             TeacherViewController controller = loader.getController();
-            System.out.println(controller);
             controller.setRootLayout(rootLayout);
             rootLayout.setCenter(root);
         } else
