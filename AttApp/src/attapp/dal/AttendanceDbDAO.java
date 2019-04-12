@@ -6,6 +6,7 @@
 package attapp.dal;
 
 import attapp.be.Attendance;
+import attapp.be.SchoolClass;
 import attapp.be.Student;
 import attapp.be.Teacher;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -17,6 +18,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -247,7 +250,70 @@ public class AttendanceDbDAO implements DAOInterface
             return attenList;
 
         }
+     }
 
-}
+     
+//       public ArrayList<SchoolClass> getClassList( int teachId)throws SQLServerException, IOException, SQLException{
+//        DbConnection dc = new DbConnection();
+//      ArrayList<SchoolClass> classList = new ArrayList<>();
+//        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("select * from Class inner join TeacherClass on Class.classID = TeacherClass.classID where teacherID = (?);")) {
+//            SchoolClass classToGet = null;
+//              pstmt.setInt(1, teachId);
+//            ResultSet rs = pstmt.executeQuery();
+//
+//            while (rs.next()) {
+//               String name = rs.getString("c_Name");
+//              
+//              
+//                classToGet = new SchoolClass(name);
+//                classList.add(classToGet);
+//            }
+//            return classList;
+//        }
+//        }
+        
+       public List getAllClasses(int teachId) throws IOException, SQLException{
+        DbConnection dc = new DbConnection();
+      ArrayList<SchoolClass> classList = new ArrayList<>();
+        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("select * from Class inner join TeacherClass on Class.classID = TeacherClass.classID where teacherID = (?);")) {
+            SchoolClass classToGet = null;
+              pstmt.setInt(1, teachId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+               String name = rs.getString("c_Name");
+              int id = rs.getInt("classID");
+              
+                classToGet = new SchoolClass(name,id);
+                classList.add(classToGet);
+            }
+            return classList;
+
+        }
+     
+     }
+       
+          public List getAllStudents(int id) throws IOException, SQLException{
+        DbConnection dc = new DbConnection();
+      ArrayList<Student> studentList = new ArrayList<>();
+        try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("select Student.studentID from Student where classID=(?)")) {
+           Student sToGet = null;
+              pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+               int sId = rs.getInt("studentID");
+              sToGet = getStudent(sId); 
+               studentList.add(sToGet);
+                    
+                }
+  
+                
+            }
+            return studentList;
+
+        }
+     
+
      
 }

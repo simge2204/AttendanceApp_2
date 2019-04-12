@@ -16,6 +16,7 @@ private ArrayList<SchoolClass> classes;
     {
        super(name,  id, email);
         classes = new ArrayList<>();
+      
         
     }
  

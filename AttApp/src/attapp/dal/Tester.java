@@ -19,16 +19,10 @@ import java.sql.Statement;
  *
  * @author Caspe
  */
-public class Tester
-{
-    public static void main(String[] args) throws IOException, SQLServerException, SQLException
-    {
+public class Tester {
 
-       
-       
-        
-   
-
-   
+    public static void main(String[] args) throws IOException, SQLServerException, SQLException {
+    AttendanceDbDAO ad = new AttendanceDbDAO();
+        System.out.println( ad.getAllStudents(20));
     }
 }

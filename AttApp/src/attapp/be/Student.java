@@ -20,18 +20,16 @@ import static jdk.nashorn.internal.objects.NativeMath.round;
  *
  * @author Christian Occhionero
  */
-public class Student extends Person
-{
+public class Student extends Person {
 
     private ObservableList<Attendance> fullAttendance;
-     private StringProperty schoolClass;
+    private StringProperty schoolClass;
     private double absencePercentage = 0;
     private DoubleProperty abPercentage;
 
-    private AttendanceDbDAO dal; 
-    
-    public Student(String name, int id, String email, String schoolClass)
-    {
+    private AttendanceDbDAO dal;
+
+    public Student(String name, int id, String email, String schoolClass) {
 
         super(name, id, email);
         this.schoolClass = new SimpleStringProperty();
@@ -41,50 +39,39 @@ public class Student extends Person
         dal = new AttendanceDbDAO();
     }
 
-   
-
-
-    public void addAttendance() throws IOException, SQLException
-
-    {
+    public void addAttendance() throws IOException, SQLException {
 //        fullAttendance=(ObservableList<Attendance>) Dao.getAttendance(this.getId());
         fullAttendance = FXCollections.observableArrayList(dal.getAttendance(this.getId()));
-        System.out.println("attendance laver lister "+dal.getAttendance(this.getId()));
+        System.out.println("attendance laver lister " + dal.getAttendance(this.getId()));
 
         double totalDays = fullAttendance.size();
         double daysPresent = 0;
 
-        for (Attendance x : fullAttendance)
-        {
-            if (x.getWasThere() == true)
-            {
+        for (Attendance x : fullAttendance) {
+            if (x.getWasThere() == true) {
                 daysPresent++;
             }
         }
         System.out.println("days present: " + daysPresent);
-        System.out.println("totalDays: "+ totalDays);
+        System.out.println("totalDays: " + totalDays);
         absencePercentage = 100 - daysPresent / totalDays * 100;
         abPercentage.set(absencePercentage);
     }
 
-    public ObservableList<Attendance> getFullAttendance()
-    {
+    public ObservableList<Attendance> getFullAttendance() {
         return fullAttendance;
     }
 
-    public Double getAbsencePercentage()
-    {
+    public Double getAbsencePercentage() {
 
         return absencePercentage;
     }
 
-    public String getSchoolClass()
-    {
+    public String getSchoolClass() {
         return schoolClass.get();
     }
 
-    public double getAbPercentage() throws ParseException
-    {
+    public double getAbPercentage() throws ParseException {
         String oneDecimal = String.format("%.1f", abPercentage.get());
         NumberFormat nf = NumberFormat.getInstance();
 
@@ -92,8 +79,7 @@ public class Student extends Person
         return per;
     }
 
-    public ArrayList<Integer> getMostAbsentDay()
-    {
+    public ArrayList<Integer> getMostAbsentDay() {
         int monday = 0;
         int tuesday = 0;
         int wedensday = 0;
@@ -102,13 +88,10 @@ public class Student extends Person
 
         ArrayList<Integer> allDays = new ArrayList<>();
 
-        for (Attendance x : fullAttendance)
-        {
-            if (x.getWasThere() == false)
-            {
+        for (Attendance x : fullAttendance) {
+            if (x.getWasThere() == false) {
                 int day = x.getCurDate().get(Calendar.DAY_OF_WEEK);
-                switch (day)
-                {
+                switch (day) {
 
                     case 2:
                         monday++;
@@ -129,7 +112,7 @@ public class Student extends Person
                 }
             }
         }
-        
+
         allDays.add(monday);
         allDays.add(tuesday);
         allDays.add(wedensday);
@@ -143,7 +126,5 @@ public class Student extends Person
     public String toString() {
         return "Student{" + "fullAttendance=" + fullAttendance + ", schoolClass=" + schoolClass + ", absencePercentage=" + absencePercentage + ", abPercentage=" + abPercentage + '}';
     }
-    
-    
 
 }

@@ -43,6 +43,7 @@ public class LoginController implements Initializable
     private Label infoLabel;
 
     SchoolAppManager bll;
+    
 
     public LoginController() throws IOException {
         this.bll = new SchoolAppManager();
@@ -94,6 +95,7 @@ public class LoginController implements Initializable
             Parent root = loader.load();
             TeacherViewController controller = loader.getController();
             System.out.println(controller);
+            controller.setTableView(); 
             controller.setRootLayout(rootLayout);
             rootLayout.setCenter(root);
         } else

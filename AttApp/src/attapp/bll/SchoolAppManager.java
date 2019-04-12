@@ -2,6 +2,7 @@ package attapp.bll;
 
 import java.sql.Date;
 import attapp.be.Attendance;
+import attapp.be.SchoolClass;
 import attapp.be.Student;
 import attapp.be.Teacher;
 import attapp.dal.AttendanceDbDAO;
@@ -12,6 +13,8 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -59,7 +62,7 @@ public class SchoolAppManager
         dal.askForAttendance(id, chosenAttendance);
     }
 
-    public Teacher getLoginTeacher(String username, String password) throws SQLException
+    public Teacher getLoginTeacher(String username, String password) throws SQLException, IOException
     {
        return authentication.validateTeacherLogin(username, password);
     }
@@ -92,10 +95,17 @@ public class SchoolAppManager
     }
 
     
-    
+//    public ArrayList<SchoolClass> getClassList(int id) throws IOException, SQLException{
+//    
+//        return dal.getClassList(id);
+//}
         
+     public List<SchoolClass>  getAllClasses( int teachId)throws SQLServerException, IOException, SQLException{
+        return dal.getAllClasses(teachId);
+        }
         
-        
-    
+    public List getAllStudents(int id) throws IOException, SQLException    {
+        return dal.getAllStudents(id);
+    }
 
 }

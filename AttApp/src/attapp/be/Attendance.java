@@ -11,8 +11,7 @@ import javafx.beans.property.StringProperty;
  *
  * @author Philip
  */
-public class Attendance
-{
+public class Attendance {
 
     private Date dateo;
     private Calendar curDate;
@@ -22,8 +21,7 @@ public class Attendance
 
     private boolean requestAttendance;
 
-    public Attendance(Calendar dt, boolean here)
-    {
+    public Attendance(Calendar dt, boolean here) {
         wasThere = new SimpleBooleanProperty();
         attendance = new SimpleStringProperty();
 //        date = new SimpleStringProperty();
@@ -31,8 +29,7 @@ public class Attendance
 
     }
 
-    public Attendance(Date dateo, boolean wasThere)
-    {
+    public Attendance(Date dateo, boolean wasThere) {
 
         this.wasThere = new SimpleBooleanProperty();
 
@@ -41,30 +38,24 @@ public class Attendance
         this.dateo = dateo;
     }
 
-    public String getAttendance()
-    {
-        if (wasThere.getValue() == true)
-        {
+    public String getAttendance() {
+        if (wasThere.getValue() == true) {
             return ("True");
-        } else
-        {
+        } else {
             return ("False");
         }
 
     }
 
-    public Calendar getCurDate()
-    {
+    public Calendar getCurDate() {
         return curDate;
     }
 
-    public Boolean getWasThere()
-    {
+    public Boolean getWasThere() {
         return wasThere.get();
     }
 
-    public String getDateo()
-    {
+    public String getDateo() {
         return dateo.toString();
 
     }
@@ -74,28 +65,21 @@ public class Attendance
 //        return attendance.get();
 //    }
 //
-    public void setAttendance(String insert)
-    {
+    public void setAttendance(String insert) {
         attendance.set(insert);
     }
-   
 
-    public void setRequestAttendance(boolean x)
-    {
+    public void setRequestAttendance(boolean x) {
         requestAttendance = x;
     }
 
-    public boolean getRequestAttendance()
-    {
+    public boolean getRequestAttendance() {
         return requestAttendance;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Attendance{" + "dateo=" + dateo + ", wasThere=" + wasThere + '}';
     }
-    
-    
 
 }
