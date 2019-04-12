@@ -217,23 +217,19 @@ public class AttendanceDbDAO implements DAOInterface
         return at;
     }
     
-    public Attendance editAttendance(int id, Date date) throws SQLServerException, SQLException, IOException
-    {
-        Attendance at = null;
+    public void editAttendance(int id, String date) throws SQLServerException, SQLException, IOException
+    {   
         DbConnection dc = new DbConnection();
         try(Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("UPDATE Attendance SET attendance = '1' "
                 + "WHERE studentID = (?) AND attendanceDay = (?); ");)
         {
             pstmt.setInt(1, id);
-            pstmt.setDate(2, date);
-             pstmt.execute();
-            
-        
+            pstmt.setString(2, date.toString());
+            pstmt.execute();
         }
-        return at;
     }
     
-     public ArrayList<Attendance> getAttendance( int studId)throws SQLServerException, IOException, SQLException{
+     public ArrayList<Attendance> getAttendance(int studId)throws SQLServerException, IOException, SQLException{
         DbConnection dc = new DbConnection();
        ArrayList<Attendance> attenList = new ArrayList<>();
         try (Connection con = dc.getConnection(); PreparedStatement pstmt = con.prepareStatement("select * from Attendance where studentID=(?)  ;")) {

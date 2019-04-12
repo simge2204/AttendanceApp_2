@@ -32,7 +32,7 @@
           <NumberAxis fx:id="percentage" label="Fravær i procent" side="LEFT" styleClass="chart" />
         </yAxis>
       </LineChart>
-      <Button layoutX="14.0" layoutY="441.0" mnemonicParsing="false" onAction="#askForAttendance" prefHeight="37.0" prefWidth="226.0" text="Ret Fravær" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="441.0" />
+      <Button layoutX="14.0" layoutY="441.0" mnemonicParsing="false" onAction="#editAttendance" prefHeight="37.0" prefWidth="226.0" text="Ret Fravær" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="441.0" />
       <ImageView fitHeight="99.0" fitWidth="99.0" layoutX="11.0" layoutY="33.0" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="33.0">
          <image>
             <Image url="@stock.png" />

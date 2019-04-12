@@ -42,6 +42,13 @@ public class SchoolAppManager
         return dal.getStudent(0);
     }
     
+    public Student getStudent(int id) throws IOException, SQLException
+    {
+        return dal.getStudent(id);
+    }
+
+    
+    
     public Student getLoginStudent (String username, String password) throws SQLException{
         return authentication.validateStudentLogin(username, password);
     }
@@ -71,29 +78,20 @@ public class SchoolAppManager
     public ArrayList<Attendance>  getAttendance( int studId)throws SQLServerException, IOException, SQLException{
         return dal.getAttendance(studId);
     }
-//    public Teacher getTeacher(String username, String password) throws IOException, SQLException {
-//        return dal.getTeacher();
-//    }//    public Teacher getTeacher(String username, String password) throws IOException, SQLException {
-//        return dal.getTeacher();
-//    }//    public Teacher getTeacher(String username, String password) throws IOException, SQLException {
-//        return dal.getTeacher();
-//    }//    public Teacher getTeacher(String username, String password) throws IOException, SQLException {
-//        return dal.getTeacher();
-//    }
-
-
-
-
 
 //    public Teacher getTeacher(String username, String password) {
 //        return dal.getTeacher();
 //    }
 
-    public void editAttendance(int id, Date date) throws SQLException, SQLServerException, IOException
+    public void editAttendance(int id, String date) throws SQLException, SQLServerException, IOException
     {
         dal.editAttendance(id, date);
     }
 
+    public Attendance addAttendanceDays(int id) throws SQLServerException, SQLException
+    {
+        return dal.addAttendanceDays(id);
+    }
     
 //    public ArrayList<SchoolClass> getClassList(int id) throws IOException, SQLException{
 //    

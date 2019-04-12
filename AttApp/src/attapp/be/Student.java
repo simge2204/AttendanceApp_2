@@ -42,7 +42,6 @@ public class Student extends Person {
     public void addAttendance() throws IOException, SQLException {
 //        fullAttendance=(ObservableList<Attendance>) Dao.getAttendance(this.getId());
         fullAttendance = FXCollections.observableArrayList(dal.getAttendance(this.getId()));
-        System.out.println("attendance laver lister " + dal.getAttendance(this.getId()));
 
         double totalDays = fullAttendance.size();
         double daysPresent = 0;
@@ -52,8 +51,7 @@ public class Student extends Person {
                 daysPresent++;
             }
         }
-        System.out.println("days present: " + daysPresent);
-        System.out.println("totalDays: " + totalDays);
+
         absencePercentage = 100 - daysPresent / totalDays * 100;
         abPercentage.set(absencePercentage);
     }

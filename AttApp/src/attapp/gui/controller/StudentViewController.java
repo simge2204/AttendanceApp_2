@@ -2,8 +2,6 @@ package attapp.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,13 +29,10 @@ import javafx.stage.Stage;
 import attapp.be.Attendance;
 import attapp.be.Student;
 import attapp.gui.model.SchoolAppModel;
-import attapp.gui.controller.LoginController;
-import java.sql.Date;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.Node;
 
 /**
  *
@@ -76,20 +71,20 @@ public class StudentViewController implements Initializable {
     @FXML
     private AnchorPane studentPage;
 
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         try {
 
             try {
+
                 model = new SchoolAppModel();
             } catch (IOException ex) {
                 Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
             showAlert();
 
-            System.out.println("stud i sTudentView" + student + "  " + student.getName());
             double ab = student.getAbsencePercentage();
-            System.out.println("ab: " + ab);
             String toShow = String.format("%.1f", ab);
             absence.setText(toShow + "%");
             name.setText(student.getName());
@@ -112,15 +107,15 @@ public class StudentViewController implements Initializable {
 
             name.setText(student.getName());
             email.setText(student.getEmail());
-        } catch (IOException io) {
+
+        } catch (IOException | SQLException io) {
             Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, io);
 
-        } catch (SQLException sqle) {
-            Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, sqle);
         }
     }
 
     private void calculateAbsence() {
+
         XYChart.Series<String, Double> series = new XYChart.Series<>();
         allAttendance = student.getFullAttendance();
 
@@ -142,41 +137,19 @@ public class StudentViewController implements Initializable {
     }
 
     private void showAlert() throws IOException, SQLException {
-        if (model.checkForSchoolNetwork() == true) //                && model.checkForDailyAttendance(Date.valueOf(LocalDate.MAX)) == false)
-        {
+        if (model.checkForSchoolNetwork() == false) {
+
+            Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
+            showAlert.setHeaderText("Netværks alarm");
+            showAlert.setContentText("Du er ikke på skolens netværk!");
+            showAlert.showAndWait();
+        }
+
+        if (model.checkForSchoolNetwork() == true) {
+            model.addAttendanceDays(student.getId());
             Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
             showAlert.setHeaderText("Fraværs alarm");
             showAlert.setContentText("Du er ikke registreret for i dag - lad mig gøre det for dig!");
-            showAlert.showAndWait();
-        }
-    }
-
-    @FXML
-    private void askForAttendance(ActionEvent event) {
-
-        Attendance chosenAttendance = tableView.getSelectionModel().getSelectedItem();
-
-        if (chosenAttendance != null && chosenAttendance.getWasThere() == false && chosenAttendance.getRequestAttendance() == false) {
-            Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
-            showAlert.setHeaderText("Anmodning om godkendelse");
-            showAlert.setContentText("Din anmodning om godkendelse af fravær d. " + chosenAttendance.getDateo() + " er sendt til din lærer!");
-            showAlert.showAndWait();
-            chosenAttendance.setAttendance("Fravær (Anmodet om godkendelse)");
-            chosenAttendance.setRequestAttendance(true);
-            model.askForAttendance(student.getId(), chosenAttendance);
-            tableView.refresh();
-            return;
-        }
-
-        if (chosenAttendance != null) {
-            Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
-            showAlert.setHeaderText("Anmodning om godkendelse");
-            showAlert.setContentText("Du har ikke fravær den valgte dag");
-            showAlert.showAndWait();
-        } else {
-            Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
-            showAlert.setHeaderText("Anmodning om godkendelse");
-            showAlert.setContentText("Du har ikke valgt en dag");
             showAlert.showAndWait();
         }
     }
@@ -229,8 +202,8 @@ public class StudentViewController implements Initializable {
     }
 
     @FXML
-    private void studentLogOut(ActionEvent event) throws IOException {
 
+    private void studentLogOut(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/attapp/gui/view/LoginView.fxml"));
         Parent root = loader.load();
         LoginController con = loader.getController();
@@ -239,11 +212,26 @@ public class StudentViewController implements Initializable {
     }
 
     void setRootLayout(BorderPane rootLayout) {
+
         this.rootLayout = rootLayout;
     }
 
     public static void setStudent(Student s) {
         StudentViewController.student = s;
+    }
+
+    @FXML
+    private void editAttendance(ActionEvent event) throws SQLException, SQLServerException, IOException {
+        Attendance chosenAttendance = tableView.getSelectionModel().getSelectedItem();
+
+        if (chosenAttendance != null && chosenAttendance.getWasThere() == false) {
+            model.editAttendance(student.getId(), chosenAttendance.getDateo());
+        } else {
+            Alert showAlert = new Alert(Alert.AlertType.INFORMATION);
+            showAlert.setHeaderText("Anmodning om godkendelse");
+            showAlert.setContentText("Du har ikke valgt en dag");
+            showAlert.showAndWait();
+        }
     }
 
 }
